@@ -8,5 +8,10 @@ namespace SistemaDeVendas.View
 {
     internal class VendaView
     {
+
+        public void Menu()
+        {
+            Console.WriteLine("Teste");
+        }
     }
 }

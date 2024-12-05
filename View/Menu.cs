@@ -8,6 +8,9 @@ namespace SistemaDeVendas.View
 {
     internal class Menu
     {
+        private ProdutoView produtoView = new ProdutoView();
+        private ClienteView clienteView = new ClienteView();
+        private VendaView vendaView = new VendaView();  
         public void Inicializar()
         {
             Boolean executando = true;
@@ -23,10 +26,13 @@ namespace SistemaDeVendas.View
                         executando = false;
                         break;
                     case 1:
+                        cleinteView.Menu();
                         break;
                     case 2:
+                        produtoView.Menu();
                         break;
                     case 3:
+                        vendaView.Menu();
                         break;
                     default:
                         Console.WriteLine("Opcao invalida tente novamente");

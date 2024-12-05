@@ -8,5 +8,10 @@ namespace SistemaDeVendas.View
 {
     internal class ProdutoView
     {
+
+        public void Menu()
+        {
+
+        }
     }
 }

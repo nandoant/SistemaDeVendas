@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace SistemaDeVendas.View
 {
-    internal class CleinteView
+    internal class ClienteView
     {
+        public void Menu()
+        {
+
+        }
     }
 }
