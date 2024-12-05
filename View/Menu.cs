@@ -37,7 +37,7 @@ namespace SistemaDeVendas.View
                         vendaView.Menu();
                         break;
                     default:
-                        Console.WriteLine("Opção inválida. Tente novamente.");
+                        Console.WriteLine("Opcao invalida. Tente novamente.");
                         break;
                 }
             }

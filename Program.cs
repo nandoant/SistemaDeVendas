@@ -1,4 +1,5 @@
-﻿using SistemaDeVendas.View;
+﻿
+using SistemaDeVendas.View;
 
 internal class Program
 {
