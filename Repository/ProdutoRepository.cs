@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SistemaDeVendas.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,56 @@ namespace SistemaDeVendas.Repository
 {
     internal class ProdutoRepository
     {
-       private 
-    }
+       private static ProdutoRepository instance;
+       private static Dictionary<int, Produto> produtoBD;
+       private static contador;   
+
+       public ProdutoRepository()
+       {
+            produtoBD = new Dictionary<int, Produto>();
+       }
+
+       public static ProdutoRepository getInstance()
+       {
+            if (instance == null)
+            {
+                instance = new ProdutoRepository();
+            }
+            return instance;
+       }
+
+       public void adicionar(Produto produto)
+       {
+            produtoBD.Add(contador++, produto);
+       }
+
+        public Dictionary<int, Produto> listar()
+        {
+            return produtoBD;
+        }
+
+        public Produto buscarPorID(int id) {
+           if(produtoBD.TryGetValue(id, out var produto){
+                return produto;
+           }
+            else
+           {
+              return null;
+           }
+        }
+
+        public void excluir(int id)
+        {
+            if (produtoBD.TryGetValue(id, out var produto))
+            {
+                produtoBD.Remove(id);
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+
 }
