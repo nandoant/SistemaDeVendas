@@ -12,9 +12,8 @@ namespace SistemaDeVendas.Model
         int idCliente;
         Dictionary<int, Produto> carrinho;
 
-        public Venda(int id, int idCliente) 
+        public Venda( int idCliente) 
         {
-            this.id = id;
             this.idCliente = idCliente;
             this.carrinho = new Dictionary<int, Produto>();
         }
@@ -49,6 +48,24 @@ namespace SistemaDeVendas.Model
         public Produto[] getProdutos()
         {
             return carrinho.Values.ToArray();   
+        }
+
+        public Produto getProduto(int produtoId)
+        {
+            if (carrinho.TryGetValue(id, out var produto))
+            {
+                return produto;
+            }
+            else
+            {
+                return null;
+
+            }
+        }
+
+        public void adicionarProduto(Produto produto)
+        {
+            carrinho.Add(produto.Codigo,produto);
         }
 
         public void Exibir()

@@ -12,6 +12,7 @@ namespace SistemaDeVendas.View
     internal class VendaView
     {
         private VendaService service = new VendaService();  
+        private ProdutoService produtoService = new ProdutoService();
 
         public void Menu()
         {
@@ -105,19 +106,21 @@ namespace SistemaDeVendas.View
             Console.WriteLine("Digite o id do cliente");
             int idCliente = Input.LerInteiro(0);
 
-            Venda venda = new Venda(0,idCliente);
+            Venda venda = new Venda(idCliente);
             while(true)
             {
                 Console.WriteLine("\nProdutos Disponiveis");
+                produtoService.listar();
 
                 Console.WriteLine("\nID do Produto (Digite 0 para finalizar) : ");
                 int produtoId = Input.LerInteiro();
                 if (idCliente == 0) { return; }
                 else
                 {
-
+                    venda.adicionarProduto(produtoService.buscarPorId(produtoId);
                 }
             }
+
         }
 
 
