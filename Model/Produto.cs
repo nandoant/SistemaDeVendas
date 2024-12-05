@@ -15,11 +15,11 @@ namespace SistemaDeVendas.Model
         private Double Preco;
 
         public Produto(String marca, String modelo, String descricao, Double preco) {
-            this.codigo = codigo
-            this.marca = Marca;
-            this.modelo = Modelo;
-            this.mescricao = Descricao;
-            this.preco = Preco;
+            this.codigo = codigo;
+            this.marca = marca;
+            this.modelo = modelo;
+            this.mescricao = descricao;
+            this.preco = preco;
 
         }
 
@@ -60,12 +60,11 @@ namespace SistemaDeVendas.Model
 
 
         public void Exibir() {
-            Console.WriteLine("Código:    {0}", Codigo);
-            Console.WriteLine("Marca :    {0}", Marca);
-            Console.WriteLine("Modelo:    {0}", Modelo);
-            Console.WriteLine("Descrição: {0}", Descricao);
-            Console.WriteLine("Preço:     {0:C}", Preco);
-            Console.WriteLine("");
+            Console.WriteLine("\tCódigo:    {0}", Codigo);
+            Console.WriteLine("\tMarca :    {0}", Marca);
+            Console.WriteLine("\tModelo:    {0}", Modelo);
+            Console.WriteLine("\tDescrição: {0}", Descricao);
+            Console.WriteLine("\tPreço:     {0:C}", Preco);
         }
 
 
