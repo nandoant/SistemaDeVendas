@@ -45,7 +45,7 @@ namespace SistemaDeVendas.View
 
         private void menuPrincipal()
         {
-            Console.WriteLine("=== Sistema de Vendas ===");
+            Console.WriteLine("\n=== Sistema de Vendas ===");
             Console.WriteLine("1. Cliente");
             Console.WriteLine("2. Produtos");
             Console.WriteLine("3. Vendas");
