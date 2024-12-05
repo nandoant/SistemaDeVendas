@@ -49,8 +49,7 @@ namespace SistemaDeVendas.View
         {
             Console.WriteLine("\n=== Sistema de Vendas ===");
             Console.WriteLine("1. Cliente");
-            Console.WriteLine("2. Produt");
-            Console.WriteLine("");
+            Console.WriteLine("2. Produtos");
             Console.WriteLine("3. Vendas");
             Console.WriteLine("0. Sair");
             Console.Write("Escolha uma opção: ");
