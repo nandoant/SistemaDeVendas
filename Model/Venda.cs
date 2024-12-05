@@ -46,6 +46,9 @@ namespace SistemaDeVendas.Model
             }
         }
 
-
+        public override string ToString()
+        {
+            
+        }
     }
 }

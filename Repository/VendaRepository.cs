@@ -11,7 +11,7 @@ namespace SistemaDeVendas.Repository
     {
         private static VendaRepository instance;
         private static Dictionary<int, Venda> vendasDB;
-        private int contador;
+        private static int contador;
 
 
         VendaRepository()
