@@ -8,21 +8,67 @@ namespace SistemaDeVendas.Model
 {
     internal class Produto
     {
-        private static int Contador = 1;
-        public int Codigo { get; set; }
-        public String Marca { get; set; }
-        public String Modelo { get; set; }
-        public String Descricao { get; set; }
-        public Double Preco { get; set; }
+        private int codigo;
+        private String marca;
+        private String modelo;
+        private String descricao;
+        private Double Preco;
 
-        public Produto(String Marca, String Modelo, String Descricao, Double Preco) {
-            this.Codigo = Contador++;
-            this.Marca = Marca;
-            this.Modelo = Modelo;
-            this.Descricao = Descricao;
-            this.Preco = Preco;
+        public Produto(String marca, String modelo, String descricao, Double preco) {
+            this.codigo = codigo
+            this.marca = Marca;
+            this.modelo = Modelo;
+            this.mescricao = Descricao;
+            this.preco = Preco;
 
         }
+
+        public int Codigo{
+            get { return this.codigo; } 
+            set { codigo = value; }
+        }
+
+        public String Marca
+        {
+            get { return this.marca; }
+            set
+            {
+                if (value != null) return;
+                marca = value;
+            }
+        }
+              
+        public String Modelo
+        {
+            get { return this.modelo; }
+            set
+            {
+                if (value != null) return;
+                modelo = value;
+            }
+        }
+
+       public String Descricao
+        {
+            get { return this.descricao; }
+            set
+            {
+                if (value != null) return;
+                descricao = value;
+            }
+        }
+
+        public Double Preco
+        {
+            get { return this.preco; }
+            set
+            {
+                if (value <= 0) return;
+                preco = value;
+            }
+        }
+
+
 
         public void Exibir() {
             Console.WriteLine("Código:    {0}", Codigo);
@@ -32,6 +78,8 @@ namespace SistemaDeVendas.Model
             Console.WriteLine("Preço:     {0:C}", Preco);
             Console.WriteLine("");
         }
+
+
 
     }
 }
