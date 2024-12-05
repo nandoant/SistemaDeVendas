@@ -46,6 +46,11 @@ namespace SistemaDeVendas.Model
             }
         }
 
+        public Produto[] getProdutos()
+        {
+            return carrinho.Values.ToArray();   
+        }
+
         public void Exibir()
         {
             Console.WriteLine("ID: " + this.Id);
