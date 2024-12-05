@@ -46,9 +46,18 @@ namespace SistemaDeVendas.Model
             }
         }
 
-        public override string ToString()
+        public void Exibir()
         {
-            
+            Console.WriteLine("ID: " + this.Id);
+            Console.WriteLine("ClienteID: " + this.IdCliente);
+            Console.WriteLine("Produtos:");
+            foreach(var produto in carrinho.Values)
+            {
+                produto.Exibir();
+                Console.WriteLine("--------------------");
+            }
+            Console.WriteLine("Valor Total: " + getValorTotal());
+            Console.WriteLine("--------------------");
         }
     }
 }
