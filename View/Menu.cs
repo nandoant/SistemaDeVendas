@@ -26,7 +26,7 @@ namespace SistemaDeVendas.View
                         executando = false;
                         break;
                     case 1:
-                        cleinteView.Menu();
+                        clienteView.Menu();
                         break;
                     case 2:
                         produtoView.Menu();
