@@ -8,5 +8,6 @@ namespace SistemaDeVendas.Repository
 {
     internal class ProdutoRepository
     {
+       private 
     }
 }

@@ -31,31 +31,20 @@ namespace SistemaDeVendas.Model
         public String Marca
         {
             get { return this.marca; }
-            set
-            {
-                if (value != null) return;
-                marca = value;
-            }
+            set {  marca = value; }
         }
               
         public String Modelo
         {
             get { return this.modelo; }
-            set
-            {
-                if (value != null) return;
-                modelo = value;
-            }
+            set {  modelo = value; }
+           
         }
 
        public String Descricao
         {
             get { return this.descricao; }
-            set
-            {
-                if (value != null) return;
-                descricao = value;
-            }
+            set { descricao = value;}
         }
 
         public Double Preco
