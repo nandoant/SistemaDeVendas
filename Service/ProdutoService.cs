@@ -19,16 +19,19 @@ namespace SistemaDeVendas.Service
 
         public void adicionar(String marca, String modelo, String descricao, Double preco)
         {
-            Produto produto = new Produto(marca, modelo, descricao, preco)
+            Produto produto = new Produto(marca, modelo, descricao, preco);
             try
             {
                 produtoRepo.adicionar(produto);
-            }catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 throw new Exception("Não foi possível cadastrar o produto!");
             }
         }
 
-        public void listar(Dictionary<int, Produto> lista) {
+        public void listar(Dictionary<int, Produto> lista)
+        {
             lista = produtoRepo.listar();
             try
             {
@@ -38,7 +41,7 @@ namespace SistemaDeVendas.Service
                 }
                 else
                 {
-                    foreach (Produto item in lista)
+                    foreach (Produto item in lista.Values)
                     {
                         Console.WriteLine("Lista de produtos: ");
                         item.Exibir();
@@ -67,6 +70,7 @@ namespace SistemaDeVendas.Service
                     Console.WriteLine("Produto encontrado com sucesso!");
                     produtoEncontrado.Exibir();
                 }
+                return produtoEncontrado;
             }
             catch (Exception ex)
             {
@@ -75,7 +79,7 @@ namespace SistemaDeVendas.Service
         }
 
 
-        public Produto remover(int id)
+        public void remover(int id)
         {
             Produto produtoEncontrado = produtoRepo.buscarPorID(id);
             try
@@ -83,7 +87,8 @@ namespace SistemaDeVendas.Service
                 if (produtoEncontrado == null)
                 {
                     Console.WriteLine("Produto com id: {0} não encontrado!", id);
-                } else if (produtoEncontrado)
+                }
+                else if (this.vendaRepo.contemProduto(id))
                 {
                     Venda[] lista = vendaRepo.listar();
                     foreach (Venda venda in lista)
@@ -97,16 +102,18 @@ namespace SistemaDeVendas.Service
                 }
                 else
                 {
-                    Produto produtoExcluido = produtoRepo.excluir(produtoEncontrado);
+                    Produto produtoExcluido = produtoRepo.excluir(id);
                     Console.WriteLine("O produto = \n\t {0} \n Foi excluído com sucesso! ", produtoExcluido);
                 }
 
-             } catch (Exception ex){
-                
+            }
+            catch (Exception ex)
+            {
+
                 throw new Exception("Não foi possível buscar o produto pelo id!");
             }
         }
-      
 
+    }
         
 }

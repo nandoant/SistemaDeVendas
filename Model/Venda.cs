@@ -51,6 +51,14 @@ namespace SistemaDeVendas.Model
             return carrinho.Values.ToArray();   
         }
 
+        public Produto GetProduto(int produtoId)
+        {
+            if (carrinho.ContainsKey(produtoId))
+                return carrinho[produtoId];
+            else
+                return null;
+        }
+
         public void Exibir()
         {
             Console.WriteLine("ID: " + this.Id);

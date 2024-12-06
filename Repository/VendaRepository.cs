@@ -48,6 +48,16 @@ namespace SistemaDeVendas.Repository
             }
         }
 
+        public bool contemProduto(int produtoId)
+        {
+            foreach (var produto in vendasDB.Values)
+            {
+                if(produto.GetProduto(produtoId).Codigo == produtoId)
+                    return true;
+            }
+            return false;
+        }
+
         public Venda[] listar()
         {
             return vendasDB.Values.ToArray();
