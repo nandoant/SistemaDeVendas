@@ -10,16 +10,47 @@ namespace SistemaDeVendas.Service
 {
     internal class VendaService
     {
-        VendaRepository repository;
+        VendaRepository vendaRepository;
+        ClienteRepository clienteRepository;
+        ProdutoRepository produtoRepository;
+
         public VendaService() 
         { 
-            repository = VendaRepository.getInstance();
+            vendaRepository = VendaRepository.getInstance();
+            produtoRepository = ProdutoRepository.getInstance();
+            //clienteRepository = ClienteRepository.getInstance();
         }
 
-        public void adicionar(Venda venda) { repository.adicionar(venda);}
+        public void adicionar(Venda venda) 
+        { 
+            if(venda == null) { throw new Exception("Venda inválida."); }   
 
-        public Venda buscar(int id) { return repository.buscar(id); }
+            //cliente
+            //if(clienteRepository.buscarPorID(venda.IdCliente) == null) { throw new Exception("Venda possui um cliente que nao existe."); }
 
-        public Venda[] listar() { return repository.listar(); }
+            //produtos
+            if(venda.getProdutos().Length == 0) { throw new Exception("A venda deve conter pelo menos um produto."); }
+            foreach (Produto produto in venda.getProdutos())
+            {
+                if(produto == null) { throw new Exception("Venda possui um produto invalido."); }
+                if(produtoRepository.buscarPorID(produto.Codigo) == null) { throw new Exception("Venda possui um produto que nao existe."); }
+            }
+            
+            try { vendaRepository.adicionar(venda);}
+            catch (Exception) { throw new Exception("Erro ao cadastrar a venda. Verifique os dados e tente novamente."); }
+        }
+
+        public Venda buscar(int id) 
+        { 
+            if(id <= 0) { throw new Exception("ID inválido."); }
+            try{ return vendaRepository.buscar(id); }
+            catch (Exception) { throw new Exception("Venda não encontrada."); }
+        }
+
+        public Venda[] listar() 
+        { 
+            try{ return vendaRepository.listar(); }
+            catch (Exception) { throw new Exception("Erro ao listar as vendas."); }
+        }
     }
 }

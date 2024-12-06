@@ -100,13 +100,10 @@ namespace SistemaDeVendas.View
 
         public void totalizacao()
         {
-            double total = 0;
-            int count = 0;
-            foreach (var venda in vendaService.listar())
-            {
-                count++;
-                total += venda.getValorTotal(); 
-            }
+            var vendas = vendaService.listar();
+            int count = vendas.Count();
+            double total = vendas.Sum(venda => venda.getValorTotal());
+
             Console.WriteLine("\n=== Totalizacao ===");
             Console.WriteLine("Numero de Vendas: "+count+", Valor Total: "+total);
         }
@@ -124,8 +121,8 @@ namespace SistemaDeVendas.View
         }*/
 
         Venda venda = new Venda(idCliente);
-
-        while (true)
+        bool addProduto = true;
+        while (addProduto)
         {
             Console.Clear();
             Console.WriteLine("\nProdutos Disponíveis:");
@@ -135,7 +132,7 @@ namespace SistemaDeVendas.View
             int produtoId = Input.LerInteiro();
             if (produtoId == 0) 
             { 
-                break; 
+                addProduto = false;  
             }
             else
             {
@@ -155,11 +152,11 @@ namespace SistemaDeVendas.View
 
         if(venda.getProdutos().Count() == 0)
         {
-            Console.WriteLine("A venda deve haver pelo menos um produto.");
+            Console.WriteLine("\nVenda cancelada - nenhum produto adicionado.");
             return;
         }
         vendaService.adicionar(venda);
-        Console.WriteLine("Venda adicionada com sucesso!");
+        Console.WriteLine("\nVenda adicionada com sucesso!");
     }
 
 
