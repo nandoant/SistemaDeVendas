@@ -107,26 +107,16 @@ namespace SistemaDeVendas.View
             Console.WriteLine("Numero de Vendas: "+count+", Valor Total: "+total);
         }
 
-        private void AdicionarVenda()
+
+        public void AdicionarVenda()
         {
-            Console.WriteLine("\n=== Nova Venda ===");
-            Console.Write("Digite o ID do cliente: ");
-            int clienteId = Input.LerInteiro(0);
-
-            /*
-            Cliente cliente = clienteService.buscar(clienteId);
-            if (cliente == null)
+            int clienteId = ObterIdCliente();
+            
+            var venda = CriarVendaComProdutos(clienteId);
+            
+            if (venda == null)
             {
-                Console.WriteLine("Cliente não encontrado.");
-                return;
-            }
-            */
-            Venda venda = new Venda(clienteId);
-            AdicionarProdutos(venda);
-
-            if (!venda.getProdutos().Any())
-            {
-                Console.WriteLine("\nVenda cancelada - nenhum produto adicionado.");
+                Console.WriteLine("\nVenda cancelada - Nenhum produto adicionado.");
                 return;
             }
 
@@ -134,38 +124,68 @@ namespace SistemaDeVendas.View
             Console.WriteLine("\nVenda adicionada com sucesso!");
         }
 
-        private void AdicionarProdutos(Venda venda)
+        private int ObterIdCliente()
         {
-            bool adicionandoProdutos = true;
-            while (adicionandoProdutos)
+            Console.WriteLine("\n=== Nova Venda ===");
+            //clienteService.Exibirlista();
+            Console.Write("Digite o ID do cliente: ");
+            int idCliente = Input.LerInteiro(0);
+            /*
+            clienteService.buscar(idCliente);
+            if (clienteService.buscar(idCliente) == null)
             {
-                Console.Clear();
-                Console.WriteLine("\nProdutos Disponíveis:");
-                produtoService.Exibirlista();
+                Console.WriteLine("Cliente nao encontrado. Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
+                return 0;
+            }
+            */
+            return idCliente;
+        }
+
+        private Venda CriarVendaComProdutos(int clienteId)
+        {
+            var venda = new Venda(clienteId);
+
+            while (true)
+            {
+                ExibirProdutosDisponiveis();
 
                 Console.Write("\nDigite o ID do Produto (0 para finalizar): ");
                 int produtoId = Input.LerInteiro();
 
                 if (produtoId == 0)
-                {
-                    adicionandoProdutos = false;
-                }
-                else
-                {
-                    Produto produto = produtoService.buscarPorId(produtoId);
-                    if (produto == null)
-                    {
-                        Console.WriteLine("Produto não encontrado. Pressione qualquer tecla para continuar...");
-                        Console.ReadKey();
-                    }
-                    else
-                    {
-                        venda.AdicionarProduto(produto);
-                        Console.WriteLine("Produto adicionado à venda.");
-                    }
-                }
+                    break;
+
+                AdicionarProdutoNaVenda(venda, produtoId);
             }
+
+            if(venda.getProdutos().Length == 0) { return null; }
+            return venda;
         }
+
+        private void ExibirProdutosDisponiveis()
+        {
+            Console.Clear();
+            Console.WriteLine("\nProdutos Disponiveis:");
+            produtoService.Exibirlista();
+        }
+
+        private void AdicionarProdutoNaVenda(Venda venda, int produtoId)
+        {
+            var produto = produtoService.buscarPorId(produtoId);
+            
+            if (produto == null)
+            {
+                Console.WriteLine("Produto nao encontrado. Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
+                return;
+            }
+
+            venda.AdicionarProduto(produto);
+            Console.WriteLine("Produto adicionado a venda.");
+        }
+
+
     }
 
 
