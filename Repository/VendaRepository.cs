@@ -49,7 +49,7 @@ namespace SistemaDeVendas.Repository
         {
             foreach (var venda in vendasDB.Values)
             {
-                var produto = venda.GetProduto(produtoId);
+                var produto = venda.getProduto(produtoId);
                 if (produto != null && produto.Codigo == produtoId)
                     return true;
             }
