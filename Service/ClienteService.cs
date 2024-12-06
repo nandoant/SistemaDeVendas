@@ -64,7 +64,7 @@ namespace SistemaDeVendas.Service
             foreach(var cliente in clientes.Values)
             {
                 cliente.Exibir();
-                Console.WriteLine("\n\t--------------------------");
+                Console.WriteLine("\n-------------------------------------");
             }
         }
 
