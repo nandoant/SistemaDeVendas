@@ -10,26 +10,23 @@ namespace SistemaDeVendas.Model
     {
         private int id;
         private int idCliente;
-        private Dictionary<int, Produto> carrinho;
+        private List<Produto> carrinho;
 
         public Venda(int idCliente) 
         {
             this.idCliente = idCliente;
-            this.carrinho = new Dictionary<int, Produto>();
+            this.carrinho = new List<Produto>();
         }
 
         public void AdicionarProduto(Produto produto)
         {
-            if (produto != null && !carrinho.ContainsKey(produto.Codigo))
-            {
-                carrinho.Add(produto.Codigo, produto);
-            }
+            carrinho.Add(produto);
         }
 
         public double getValorTotal()
         {
             double total = 0;
-            foreach (var item in carrinho.Values)
+            foreach (var item in carrinho)
             {
                 total += item.Preco;
             }
@@ -58,25 +55,19 @@ namespace SistemaDeVendas.Model
 
         public Produto[] getProdutos()
         {
-            return carrinho.Values.ToArray();   
+            return carrinho.ToArray();   
         }
 
         public Produto getProduto(int produtoId)
         {
-            if (carrinho.TryGetValue(id, out var produto))
+            foreach (Produto produto in carrinho)
             {
-                return produto;
+                if (produto.Codigo == produtoId)
+                {
+                    return produto;
+                }
             }
-            else
-            {
-                return null;
-
-            }
-        }
-
-        public void adicionarProduto(Produto produto)
-        {
-            carrinho.Add(produto.Codigo,produto);
+            return null;
         }
 
         public void Exibir()
@@ -85,7 +76,7 @@ namespace SistemaDeVendas.Model
             Console.WriteLine("ID da Venda: " + this.Id);
             Console.WriteLine("ID do Cliente: " + this.IdCliente);
             Console.WriteLine("Produtos:");
-            foreach(var produto in carrinho.Values)
+            foreach(var produto in carrinho)
             {
                 produto.Exibir();
                 Console.WriteLine("-------------------------------------");
