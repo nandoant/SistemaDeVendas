@@ -11,7 +11,7 @@ namespace SistemaDeVendas.Repository
     {
         private static VendaRepository instance;
         private static Dictionary<int, Venda> vendasDB;
-        private static int contador;
+        private static int contador = 1;
 
 
         VendaRepository()
@@ -32,6 +32,7 @@ namespace SistemaDeVendas.Repository
 
         public void adicionar(Venda venda)
         {
+            venda.Id = contador;
             vendasDB.Add(contador++, venda);
         }
 

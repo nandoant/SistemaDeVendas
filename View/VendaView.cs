@@ -27,12 +27,17 @@ namespace SistemaDeVendas.View
                         executando = false;
                         break;
                     case 1:
+                        adicionarVenda();
                         break;
                     case 2:
+                        buscarVenda();
+                        
                         break;
                     case 3:
+                        listarVendas();
                         break;
                     case 4:
+
                         break;
                     default:
                         Console.WriteLine("Opcao invalida. Tente novamente.");
@@ -55,6 +60,7 @@ namespace SistemaDeVendas.View
 
         public void buscarVenda()
         {
+            Console.WriteLine("\n=== Buscar uma Venda ===");
             Console.WriteLine("Digite o codigo da venda:");
             Console.Write("opcao: ");
             int vendaId = Input.LerInteiro(0);
@@ -69,6 +75,49 @@ namespace SistemaDeVendas.View
 
             Console.WriteLine(venda);
 
+        }
+
+        public void listarVendas()
+        {
+            Console.WriteLine("\n=== Todas as Vendas ===");
+            foreach (var venda in service.listar())
+            {
+                Console.WriteLine("ID: "+venda.Id+", Valor Total: "+venda.getValorTotal());
+            }
+        }
+
+        public void totalizacao()
+        {
+            double total = 0;
+            int count = 0;
+            foreach (var venda in service.listar())
+            {
+                count++;
+                total += venda.getValorTotal(); 
+            }
+            Console.WriteLine("\n=== Totalizacao ===");
+            Console.WriteLine("Numero de Vendas: "+count+", Valor Total: "+total);
+        }
+
+        public void adicionarVenda()
+        {
+            Console.WriteLine("\n=== Adicionar Nova Venda ===");
+            Console.WriteLine("Digite o id do cliente");
+            int idCliente = Input.LerInteiro(0);
+
+            Venda venda = new Venda(0,idCliente);
+            while(true)
+            {
+                Console.WriteLine("\nProdutos Disponiveis");
+
+                Console.WriteLine("\nID do Produto (Digite 0 para finalizar) : ");
+                int produtoId = Input.LerInteiro();
+                if (idCliente == 0) { return; }
+                else
+                {
+
+                }
+            }
         }
 
 
