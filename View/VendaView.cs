@@ -34,7 +34,6 @@ namespace SistemaDeVendas.View
                         break;
                     case 2:
                         buscarVenda();
-                        
                         break;
                     case 3:
                         listarVendas();
