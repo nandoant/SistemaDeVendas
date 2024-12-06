@@ -159,7 +159,8 @@ namespace SistemaDeVendas.View
                 AdicionarProdutoNaVenda(venda, produtoId);
             }
 
-            return venda.getProdutos().Any() ? venda : null;
+            if(venda.getProdutos().Length == 0) { return null; }
+            return venda;
         }
 
         private void ExibirProdutosDisponiveis()
