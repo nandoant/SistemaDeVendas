@@ -12,13 +12,13 @@ namespace SistemaDeVendas.Model
         private String marca;
         private String modelo;
         private String descricao;
-        private Double Preco;
+        private Double preco;
 
         public Produto(String marca, String modelo, String descricao, Double preco) {
             this.codigo = codigo;
             this.marca = marca;
             this.modelo = modelo;
-            this.mescricao = descricao;
+            this.descricao = descricao;
             this.preco = preco;
 
         }
