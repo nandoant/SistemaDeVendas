@@ -45,9 +45,9 @@ namespace SistemaDeVendas.Repository
             }
         }
 
-        public Cliente[] listar()
+        public Dictionary<int, Cliente> listar()
         {
-            return clientesDB.Values.ToArray();
+            return clientesDB;
         }
 
         public Cliente excluir(int codigo)
