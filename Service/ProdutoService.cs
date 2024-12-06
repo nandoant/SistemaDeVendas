@@ -19,7 +19,7 @@ namespace SistemaDeVendas.Service
 
         public void adicionar(String marca, String modelo, String descricao, Double preco)
         {
-            Produto produto = new Produto(marca, modelo, descricao, preco)
+            Produto produto = new Produto(marca, modelo, descricao, preco);
             try
             {
                 produtoRepo.adicionar(produto);
@@ -38,7 +38,7 @@ namespace SistemaDeVendas.Service
                 }
                 else
                 {
-                    foreach (Produto item in lista)
+                    foreach (Produto item in lista.Values)
                     {
                         Console.WriteLine("Lista de produtos: ");
                         item.Exibir();
@@ -83,7 +83,8 @@ namespace SistemaDeVendas.Service
                 if (produtoEncontrado == null)
                 {
                     Console.WriteLine("Produto com id: {0} não encontrado!", id);
-                } else if (produtoEncontrado)
+                } 
+                else if (produtoEncontrado)
                 {
                     Venda[] lista = vendaRepo.listar();
                     foreach (Venda venda in lista)
@@ -97,7 +98,7 @@ namespace SistemaDeVendas.Service
                 }
                 else
                 {
-                    Produto produtoExcluido = produtoRepo.excluir(produtoEncontrado);
+                    Produto produtoExcluido = produtoRepo.excluir(produtoEncontrado.Codigo);
                     Console.WriteLine("O produto = \n\t {0} \n Foi excluído com sucesso! ", produtoExcluido);
                 }
 
