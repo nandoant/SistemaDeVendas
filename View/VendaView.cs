@@ -11,17 +11,19 @@ namespace SistemaDeVendas.View
 {
     internal class VendaView
     {
-        private VendaService service = new VendaService();  
+        private VendaService vendaService = new VendaService();
+        private ClienteService clienteService = new ClienteService();
         private ProdutoService produtoService = new ProdutoService();
 
         public void Menu()
         {
             bool executando = true;
-
             while (executando) 
             {
+                Console.Clear();
                 exibirMenu();
                 int opcao = Input.LerInteiro(0,4);
+                Console.Clear();
                 switch (opcao)
                 {
                     case 0:
@@ -38,11 +40,16 @@ namespace SistemaDeVendas.View
                         listarVendas();
                         break;
                     case 4:
-
+                        totalizacao();
                         break;
                     default:
                         Console.WriteLine("Opcao invalida. Tente novamente.");
                         break;
+                }
+                if (opcao != 0) 
+                {
+                    Console.WriteLine("\nPressione qualquer tecla para continuar...");
+                    Console.ReadKey();
                 }
             }
             
@@ -63,10 +70,10 @@ namespace SistemaDeVendas.View
         {
             Console.WriteLine("\n=== Buscar uma Venda ===");
             Console.WriteLine("Digite o codigo da venda:");
-            Console.Write("opcao: ");
+            Console.Write("Escolha um codigo: ");
             int vendaId = Input.LerInteiro(0);
 
-            Venda venda= service.buscar(vendaId);
+            Venda venda= vendaService.buscar(vendaId);
 
             if (venda == null)
             {
@@ -74,14 +81,19 @@ namespace SistemaDeVendas.View
                 return;
             }
 
-            Console.WriteLine(venda);
+            venda.Exibir();
 
         }
 
         public void listarVendas()
         {
             Console.WriteLine("\n=== Todas as Vendas ===");
-            foreach (var venda in service.listar())
+            if(vendaService.listar().Count() == 0)
+            {
+                Console.WriteLine("Nenhuma venda cadastrada.");
+                return;
+            }
+            foreach (var venda in vendaService.listar())
             {
                 Console.WriteLine("ID: "+venda.Id+", Valor Total: "+venda.getValorTotal());
             }
@@ -91,7 +103,7 @@ namespace SistemaDeVendas.View
         {
             double total = 0;
             int count = 0;
-            foreach (var venda in service.listar())
+            foreach (var venda in vendaService.listar())
             {
                 count++;
                 total += venda.getValorTotal(); 
@@ -100,28 +112,56 @@ namespace SistemaDeVendas.View
             Console.WriteLine("Numero de Vendas: "+count+", Valor Total: "+total);
         }
 
-        public void adicionarVenda()
+    public void adicionarVenda()
+    {
+        Console.WriteLine("\n=== Adicionar Nova Venda ===");
+        Console.WriteLine("Digite o id do cliente");
+        int idCliente = Input.LerInteiro(0);
+
+        /*if (clienteService.buscar(idCliente) == null)
         {
-            Console.WriteLine("\n=== Adicionar Nova Venda ===");
-            Console.WriteLine("Digite o id do cliente");
-            int idCliente = Input.LerInteiro(0);
+            Console.WriteLine("Cliente não encontrado.");
+            return;
+        }*/
 
-            Venda venda = new Venda(idCliente);
-            while(true)
+        Venda venda = new Venda(idCliente);
+
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("\nProdutos Disponíveis:");
+            produtoService.Exibirlista();
+
+            Console.WriteLine("\nID do Produto (Digite 0 para finalizar) : ");
+            int produtoId = Input.LerInteiro();
+            if (produtoId == 0) 
+            { 
+                break; 
+            }
+            else
             {
-                Console.WriteLine("\nProdutos Disponiveis");
-                produtoService.listar();
-
-                Console.WriteLine("\nID do Produto (Digite 0 para finalizar) : ");
-                int produtoId = Input.LerInteiro();
-                if (idCliente == 0) { return; }
+                Produto produto = produtoService.buscarPorId(produtoId);
+                if (produto == null)
+                {
+                    Console.WriteLine("Pressione qualquer tecla para continuar...");
+                    Console.ReadKey();
+                }
                 else
                 {
-                    venda.adicionarProduto(produtoService.buscarPorId(produtoId);
+                    venda.AdicionarProduto(produto);
+                    Console.WriteLine("Produto adicionado à venda.");
                 }
             }
-
         }
+
+        if(venda.getProdutos().Count() == 0)
+        {
+            Console.WriteLine("A venda deve haver pelo menos um produto.");
+            return;
+        }
+        vendaService.adicionar(venda);
+        Console.WriteLine("Venda adicionada com sucesso!");
+    }
 
 
     }

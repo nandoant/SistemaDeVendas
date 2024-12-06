@@ -9,14 +9,23 @@ namespace SistemaDeVendas.Model
     internal class Venda
     {
         private int id;
-        int idCliente;
-        Dictionary<int, Produto> carrinho;
+        private int idCliente;
+        private Dictionary<int, Produto> carrinho;
 
-        public Venda( int idCliente) 
+        public Venda(int idCliente) 
         {
             this.idCliente = idCliente;
             this.carrinho = new Dictionary<int, Produto>();
         }
+
+        public void AdicionarProduto(Produto produto)
+        {
+            if (produto != null && !carrinho.ContainsKey(produto.Codigo))
+            {
+                carrinho.Add(produto.Codigo, produto);
+            }
+        }
+
         public double getValorTotal()
         {
             double total = 0;
@@ -26,6 +35,7 @@ namespace SistemaDeVendas.Model
             }
             return total;
         }
+
         public int Id
         {
             get { return id; }
@@ -35,13 +45,14 @@ namespace SistemaDeVendas.Model
                 id = value; 
             }
         }
+
         public int IdCliente
         {
-            get { return id; }
+            get { return idCliente; }
             set
             {
                 if (value < 0) return;
-                id = value;
+                idCliente = value;
             }
         }
 
@@ -70,16 +81,17 @@ namespace SistemaDeVendas.Model
 
         public void Exibir()
         {
-            Console.WriteLine("ID: " + this.Id);
-            Console.WriteLine("ClienteID: " + this.IdCliente);
+            Console.WriteLine("\n-------------------------------------");
+            Console.WriteLine("ID da Venda: " + this.Id);
+            Console.WriteLine("ID do Cliente: " + this.IdCliente);
             Console.WriteLine("Produtos:");
             foreach(var produto in carrinho.Values)
             {
                 produto.Exibir();
-                Console.WriteLine("--------------------");
+                Console.WriteLine("-------------------------------------");
             }
             Console.WriteLine("Valor Total: " + getValorTotal());
-            Console.WriteLine("--------------------");
+            Console.WriteLine("-------------------------------------");
         }
     }
 }
