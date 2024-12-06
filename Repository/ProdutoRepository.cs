@@ -30,6 +30,7 @@ namespace SistemaDeVendas.Repository
 
         public void adicionar(Produto produto)
         {
+            produto.Codigo = contador;  
             produtoBD.Add(contador++, produto);
         }
 

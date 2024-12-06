@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
-
 namespace SistemaDeVendas.Service
 {
     internal class ProdutoService
@@ -17,103 +16,109 @@ namespace SistemaDeVendas.Service
         private ProdutoRepository produtoRepo = ProdutoRepository.getInstance();
         private VendaRepository vendaRepo = VendaRepository.getInstance();
 
-        public void adicionar(String marca, String modelo, String descricao, Double preco)
+        public bool adicionar(string marca, string modelo, string descricao, double preco)
         {
-            Produto produto = new Produto(marca, modelo, descricao, preco);
+            if (string.IsNullOrWhiteSpace(marca) || string.IsNullOrWhiteSpace(modelo) || 
+                string.IsNullOrWhiteSpace(descricao) || preco <= 0)
+            {
+                throw new Exception("Todos os campos são obrigatórios e o preço deve ser maior que zero.");
+            }
+
             try
             {
+                var produto = new Produto(marca, modelo, descricao, preco);
                 produtoRepo.adicionar(produto);
+                return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception("Não foi possível cadastrar o produto!");
+                throw new Exception("Erro ao cadastrar o produto. Verifique os dados e tente novamente.");
             }
         }
 
-        public void listar(Dictionary<int, Produto> lista)
+        public Produto[] listar()
         {
-            lista = produtoRepo.listar();
-            try
+            var produtos = produtoRepo.listar();
+            if (produtos == null || produtos.Count == 0)
             {
-                if (lista == null)
-                {
-                    Console.WriteLine("A lista está vazia!");
-                }
-                else
-                {
-                    foreach (Produto item in lista.Values)
-                    {
-                        Console.WriteLine("Lista de produtos: ");
-                        item.Exibir();
-                        Console.WriteLine("\n\t--------------------------");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Não foi possível listar os produtos.");
+                return null;
             }
 
+            return produtos.Values.ToArray();
+        }
+        public void Exibirlista()
+        {
+            var produtos = produtoRepo.listar();
+            
+            if (produtos == null || produtos.Count == 0)
+            {
+                Console.WriteLine("Não há produtos cadastrados.");
+                return;
+            }
+
+            Console.WriteLine("=== LISTA DE PRODUTOS ===");
+            foreach (var produto in produtos.Values)
+            {
+                produto.Exibir();
+                Console.WriteLine("\n\t--------------------------");
+            }
         }
 
         public Produto buscarPorId(int id)
         {
-            Produto produtoEncontrado = produtoRepo.buscarPorID(id);
-            try
+            if (id <= 0)
             {
-                if (produtoEncontrado == null)
-                {
-                    Console.WriteLine("Produto com id: {0} não encontrado!", id);
-                }
-                else
-                {
-                    Console.WriteLine("Produto encontrado com sucesso!");
-                    produtoEncontrado.Exibir();
-                }
-                return produtoEncontrado;
+                throw new Exception("ID inválido.");
             }
-            catch (Exception ex)
+
+            var produto = produtoRepo.buscarPorID(id);
+            
+            if (produto == null)
             {
-                throw new Exception("Não foi possível buscar o produto pelo id!");
+                Console.WriteLine($"Produto com ID {id} não encontrado.");
+                return null;
             }
+
+            Console.WriteLine("Produto encontrado:");
+            produto.Exibir();
+            return produto;
         }
 
-
-        public void remover(int id)
+        public bool remover(int id)
         {
-            Produto produtoEncontrado = produtoRepo.buscarPorID(id);
-            try
+            if (id <= 0)
             {
-                if (produtoEncontrado == null)
+                throw new Exception("ID inválido.");
+            }
+
+            var produto = produtoRepo.buscarPorID(id);
+            
+            if (produto == null)
+            {
+                Console.WriteLine($"Produto com ID {id} não encontrado.");
+                return false;
+            }
+
+            if (vendaRepo.contemProduto(id))
+            {
+                var vendas = vendaRepo.listar();
+                foreach (var venda in vendas)
                 {
-                    Console.WriteLine("Produto com id: {0} não encontrado!", id);
-                }
-                else if (this.vendaRepo.contemProduto(id))
-                {
-                    Venda[] lista = vendaRepo.listar();
-                    foreach (Venda venda in lista)
+                    if (produto.Codigo == venda.Id)
                     {
-                        if (produtoEncontrado.Codigo == venda.Id)
-                        {
-                            Console.WriteLine("Não é possível excluir esse produto, o mesmo está sendo usado na venda {0}", venda.Id);
-                        }
+                        throw new Exception(
+                            $"Não é possível excluir este produto, pois está vinculado à venda {venda.Id}");
                     }
-
                 }
-                else
-                {
-                    Produto produtoExcluido = produtoRepo.excluir(id);
-                    Console.WriteLine("O produto = \n\t {0} \n Foi excluído com sucesso! ", produtoExcluido);
-                }
-
             }
-            catch (Exception ex)
+
+            if (produtoRepo.excluir(id) != null)
             {
-
-                throw new Exception("Não foi possível buscar o produto pelo id!");
+                Console.WriteLine("Produto excluído com sucesso!");
+                return true;
             }
-        }
 
+            return false;
+        }
     }
-        
 }

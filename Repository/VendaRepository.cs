@@ -13,8 +13,7 @@ namespace SistemaDeVendas.Repository
         private static Dictionary<int, Venda> vendasDB;
         private static int contador = 1;
 
-
-        VendaRepository()
+        private VendaRepository()
         {
             vendasDB = new Dictionary<int, Venda>();    
         }
@@ -26,8 +25,6 @@ namespace SistemaDeVendas.Repository
                 instance = new VendaRepository();
             }
             return instance;
-            
-            
         }
 
         public void adicionar(Venda venda)
@@ -50,9 +47,10 @@ namespace SistemaDeVendas.Repository
 
         public bool contemProduto(int produtoId)
         {
-            foreach (var produto in vendasDB.Values)
+            foreach (var venda in vendasDB.Values)
             {
-                if(produto.GetProduto(produtoId).Codigo == produtoId)
+                var produto = venda.getProduto(produtoId);
+                if (produto != null && produto.Codigo == produtoId)
                     return true;
             }
             return false;
