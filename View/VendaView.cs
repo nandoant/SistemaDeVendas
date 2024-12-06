@@ -30,16 +30,16 @@ namespace SistemaDeVendas.View
                         executando = false;
                         break;
                     case 1:
-                        adicionarVenda();
+                        AdicionarVenda();
                         break;
                     case 2:
-                        buscarVenda();
+                        BuscarVenda();
                         break;
                     case 3:
-                        listarVendas();
+                        ListarVendas();
                         break;
                     case 4:
-                        totalizacao();
+                        ExibirTotalizacao();
                         break;
                     default:
                         Console.WriteLine("Opcao invalida. Tente novamente.");
@@ -65,11 +65,10 @@ namespace SistemaDeVendas.View
             Console.Write("Escolha uma opcao: ");
         }
 
-        public void buscarVenda()
+        public void BuscarVenda()
         {
             Console.WriteLine("\n=== Buscar uma Venda ===");
             Console.WriteLine("Digite o codigo da venda:");
-            Console.Write("Escolha um codigo: ");
             int vendaId = Input.LerInteiro(0);
 
             Venda venda= vendaService.buscar(vendaId);
@@ -84,7 +83,7 @@ namespace SistemaDeVendas.View
 
         }
 
-        public void listarVendas()
+        public void ListarVendas()
         {
             Console.WriteLine("\n=== Todas as Vendas ===");
             if(vendaService.listar().Count() == 0)
@@ -98,70 +97,97 @@ namespace SistemaDeVendas.View
             }
         }
 
-        public void totalizacao()
+        public void ExibirTotalizacao()
         {
-            double total = 0;
-            int count = 0;
-            foreach (var venda in vendaService.listar())
-            {
-                count++;
-                total += venda.getValorTotal(); 
-            }
+            var vendas = vendaService.listar();
+            int count = vendas.Count();
+            double total = vendas.Sum(venda => venda.getValorTotal());
+
             Console.WriteLine("\n=== Totalizacao ===");
             Console.WriteLine("Numero de Vendas: "+count+", Valor Total: "+total);
         }
 
-    public void adicionarVenda()
-    {
-        Console.WriteLine("\n=== Adicionar Nova Venda ===");
-        Console.WriteLine("Digite o id do cliente");
-        int idCliente = Input.LerInteiro(0);
 
-        /*if (clienteService.buscar(idCliente) == null)
+        public void AdicionarVenda()
         {
-            Console.WriteLine("Cliente não encontrado.");
-            return;
-        }*/
+            int clienteId = ObterIdCliente();
+            
+            var venda = CriarVendaComProdutos(clienteId);
+            
+            if (venda == null)
+            {
+                Console.WriteLine("\nVenda cancelada - Nenhum produto adicionado.");
+                return;
+            }
 
-        Venda venda = new Venda(idCliente);
+            vendaService.adicionar(venda);
+            Console.WriteLine("\nVenda adicionada com sucesso!");
+        }
 
-        while (true)
+        private int ObterIdCliente()
+        {
+            Console.WriteLine("\n=== Nova Venda ===");
+            //clienteService.Exibirlista();
+            Console.Write("Digite o ID do cliente: ");
+            int idCliente = Input.LerInteiro(0);
+            /*
+            clienteService.buscar(idCliente);
+            if (clienteService.buscar(idCliente) == null)
+            {
+                Console.WriteLine("Cliente nao encontrado. Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
+                return 0;
+            }
+            */
+            return idCliente;
+        }
+
+        private Venda CriarVendaComProdutos(int clienteId)
+        {
+            var venda = new Venda(clienteId);
+
+            while (true)
+            {
+                ExibirProdutosDisponiveis();
+
+                Console.Write("\nDigite o ID do Produto (0 para finalizar): ");
+                int produtoId = Input.LerInteiro();
+
+                if (produtoId == 0)
+                    break;
+
+                AdicionarProdutoNaVenda(venda, produtoId);
+            }
+
+            if(venda.getProdutos().Length == 0) { return null; }
+            return venda;
+        }
+
+        private void ExibirProdutosDisponiveis()
         {
             Console.Clear();
-            Console.WriteLine("\nProdutos Disponíveis:");
+            Console.WriteLine("\nProdutos Disponiveis:");
             produtoService.Exibirlista();
-
-            Console.WriteLine("\nID do Produto (Digite 0 para finalizar) : ");
-            int produtoId = Input.LerInteiro();
-            if (produtoId == 0) 
-            { 
-                break; 
-            }
-            else
-            {
-                Produto produto = produtoService.buscarPorId(produtoId);
-                if (produto == null)
-                {
-                    Console.WriteLine("Pressione qualquer tecla para continuar...");
-                    Console.ReadKey();
-                }
-                else
-                {
-                    venda.AdicionarProduto(produto);
-                    Console.WriteLine("Produto adicionado à venda.");
-                }
-            }
         }
 
-        if(venda.getProdutos().Count() == 0)
+        private void AdicionarProdutoNaVenda(Venda venda, int produtoId)
         {
-            Console.WriteLine("A venda deve haver pelo menos um produto.");
-            return;
+            var produto = produtoService.buscarPorId(produtoId);
+            
+            if (produto == null)
+            {
+                Console.WriteLine("Produto nao encontrado. Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
+                return;
+            }
+
+            venda.AdicionarProduto(produto);
+            Console.WriteLine("Produto adicionado a venda.");
         }
-        vendaService.adicionar(venda);
-        Console.WriteLine("Venda adicionada com sucesso!");
-    }
 
 
     }
+
+
 }
+
