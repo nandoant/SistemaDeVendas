@@ -23,7 +23,7 @@ namespace SistemaDeVendas.Service
 
         public void adicionar(Venda venda) 
         { 
-            if(venda == null) { throw new Exception("Venda inválida."); }   
+            if(venda == null) { throw new Exception("Venda invalida."); }   
 
             //cliente
             //if(clienteRepository.buscarPorID(venda.IdCliente) == null) { throw new Exception("Venda possui um cliente que nao existe."); }
@@ -42,9 +42,9 @@ namespace SistemaDeVendas.Service
 
         public Venda buscar(int id) 
         { 
-            if(id <= 0) { throw new Exception("ID inválido."); }
+            if(id <= 0) { throw new Exception("ID invalido."); }
             try{ return vendaRepository.buscar(id); }
-            catch (Exception) { throw new Exception("Venda não encontrada."); }
+            catch (Exception) { throw new Exception("Venda nao encontrada."); }
         }
 
         public Venda[] listar() 
