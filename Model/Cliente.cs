@@ -29,7 +29,7 @@ namespace SistemaDeVendas.Model
             set
             {
                 if (value < 0) return;
-                else this.codigo = value;   
+                codigo = value;   
             }
         }
 
@@ -41,7 +41,7 @@ namespace SistemaDeVendas.Model
             }
             set
             {
-                this.nome = value;
+                nome = value;
             }
         }
 
@@ -54,7 +54,7 @@ namespace SistemaDeVendas.Model
             set
             {
                 if (value <= 0) return;
-                else this.idade = value;
+                idade = value;
             }
         }
 
@@ -66,8 +66,17 @@ namespace SistemaDeVendas.Model
             }
             set
             {
-                this.cpf = value;
+                cpf = value;
             }
+        }
+
+        public void Exibir()
+        {
+            Console.WriteLine("\n-------------------------------------");
+            Console.WriteLine($"Código do Cliente: {this.codigo}");
+            Console.WriteLine($"Nome do Cliente: {this.nome}");
+            Console.WriteLine($"Idade do Cliente: {this.idade}");
+            Console.WriteLine($"CPF do Cliente: {this.cpf}");
         }
     }
 }
