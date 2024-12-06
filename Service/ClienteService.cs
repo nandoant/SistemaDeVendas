@@ -17,7 +17,14 @@ namespace SistemaDeVendas.Service
         {
             if(string.IsNullOrWhiteSpace(nome) || idade <= 0 || string.IsNullOrWhiteSpace(cpf))
             {
-                throw new Exception("Todos os campos são obrigatórios e a idade deve ser maior que zero");
+                throw new Exception("Todos os campos são obrigatórios e a idade deve ser maior que zero.");
+            }
+
+            Dictionary<int, Cliente> clientes = clienteRepo.listar();
+            foreach(var cliente in clientes)
+            {
+                if (cliente.Value.Cpf == cpf)
+                    throw new Exception("Já existe um cliente cadastrado com o Cpf informado.");
             }
 
             try
@@ -28,7 +35,7 @@ namespace SistemaDeVendas.Service
             }
             catch (Exception)
             {
-                throw new Exception("Erro ao cadastrar o cliente. Verifique os dados e tente novamente");
+                throw new Exception("Erro ao cadastrar o cliente. Verifique os dados e tente novamente.");
             }
         }
 
