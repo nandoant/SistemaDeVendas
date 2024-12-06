@@ -127,18 +127,15 @@ namespace SistemaDeVendas.View
         private int ObterIdCliente()
         {
             Console.WriteLine("\n=== Nova Venda ===");
-            //clienteService.Exibirlista();
+            clienteService.exibirLista();
             Console.Write("Digite o ID do cliente: ");
             int idCliente = Input.LerInteiro(0);
-            /*
-            clienteService.buscar(idCliente);
             if (clienteService.buscar(idCliente) == null)
             {
-                Console.WriteLine("Cliente nao encontrado. Pressione qualquer tecla para continuar...");
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
                 Console.ReadKey();
                 return 0;
             }
-            */
             return idCliente;
         }
 
