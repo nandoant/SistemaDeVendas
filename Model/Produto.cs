@@ -8,30 +8,66 @@ namespace SistemaDeVendas.Model
 {
     internal class Produto
     {
-        private static int Contador = 1;
-        public int Codigo { get; set; }
-        public String Marca { get; set; }
-        public String Modelo { get; set; }
-        public String Descricao { get; set; }
-        public Double Preco { get; set; }
+        private int codigo;
+        private String marca;
+        private String modelo;
+        private String descricao;
+        private Double preco;
 
-        public Produto(String Marca, String Modelo, String Descricao, Double Preco) {
-            this.Codigo = Contador++;
-            this.Marca = Marca;
-            this.Modelo = Modelo;
-            this.Descricao = Descricao;
-            this.Preco = Preco;
+        public Produto(String marca, String modelo, String descricao, Double preco) {
+            this.codigo = codigo;
+            this.marca = marca;
+            this.modelo = modelo;
+            this.descricao = descricao;
+            this.preco = preco;
 
         }
+
+        public int Codigo{
+            get { return this.codigo; } 
+            set { codigo = value; }
+        }
+
+        public String Marca
+        {
+            get { return this.marca; }
+            set {  marca = value; }
+        }
+              
+        public String Modelo
+        {
+            get { return this.modelo; }
+            set {  modelo = value; }
+           
+        }
+
+       public String Descricao
+        {
+            get { return this.descricao; }
+            set { descricao = value;}
+        }
+
+        public Double Preco
+        {
+            get { return this.preco; }
+            set
+            {
+                if (value <= 0) return;
+                preco = value;
+            }
+        }
+
+
 
         public void Exibir() {
-            Console.WriteLine("Código:    {0}", Codigo);
-            Console.WriteLine("Marca :    {0}", Marca);
-            Console.WriteLine("Modelo:    {0}", Modelo);
-            Console.WriteLine("Descrição: {0}", Descricao);
-            Console.WriteLine("Preço:     {0:C}", Preco);
-            Console.WriteLine("");
+            Console.WriteLine("\tCódigo:    {0}", Codigo);
+            Console.WriteLine("\tMarca :    {0}", Marca);
+            Console.WriteLine("\tModelo:    {0}", Modelo);
+            Console.WriteLine("\tDescrição: {0}", Descricao);
+            Console.WriteLine("\tPreço:     {0:C}", Preco);
         }
+
+
 
     }
 }
