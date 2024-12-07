@@ -18,7 +18,7 @@ namespace SistemaDeVendas.Service
         { 
             vendaRepository = VendaRepository.getInstance();
             produtoRepository = ProdutoRepository.getInstance();
-            //clienteRepository = ClienteRepository.getInstance();
+            clienteRepository = ClienteRepository.getInstance();
         }
 
         public void adicionar(Venda venda) 
@@ -26,7 +26,7 @@ namespace SistemaDeVendas.Service
             if(venda == null) { throw new Exception("Venda invalida."); }   
 
             //cliente
-            //if(clienteRepository.buscarPorID(venda.IdCliente) == null) { throw new Exception("Venda possui um cliente que nao existe."); }
+            if(clienteRepository.buscar(venda.IdCliente) == null) { throw new Exception("Venda possui um cliente que nao existe."); }
 
             //produtos
             if(venda.getProdutos().Length == 0) { throw new Exception("A venda deve conter pelo menos um produto."); }
