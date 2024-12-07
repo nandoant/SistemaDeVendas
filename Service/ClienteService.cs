@@ -15,7 +15,7 @@ namespace SistemaDeVendas.Service
 
         public bool adicionar(string nome, int idade, string cpf)
         {
-            if(string.IsNullOrWhiteSpace(nome) || idade <= 0 || string.IsNullOrWhiteSpace(cpf))
+            if(string.IsNullOrWhiteSpace(nome) || idade < 0 || string.IsNullOrWhiteSpace(cpf))
             {
                 throw new Exception("Todos os campos são obrigatórios e a idade deve ser maior que zero.");
             }
