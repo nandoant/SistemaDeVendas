@@ -229,9 +229,10 @@ namespace SistemaDeVendas.View
                     return;
                 }
 
+                Console.WriteLine("=== VENDAS ===");
                 foreach (var venda in vendas)
                 {
-                    ExibirVenda(venda);
+                    Console.WriteLine("ID: " + venda.Id + ", Valor Total: " + venda.getValorTotal().ToString("0.00"));
                 }
             }
             catch (Exception ex)
