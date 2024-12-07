@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SistemaDeVendas.Service
 {
-    internal class ClienteService
+    internal class ClienteController
     {
         private ClienteRepository clienteRepo = ClienteRepository.getInstance();
         private VendaRepository vendaRepo = VendaRepository.getInstance();

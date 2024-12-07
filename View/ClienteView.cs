@@ -10,11 +10,11 @@ namespace SistemaDeVendas.View
 {
     internal class ClienteView
     {
-        private ClienteService clienteService;
+        private ClienteController clienteService;
 
         public ClienteView()
         {
-            clienteService = new ClienteService();
+            clienteService = new ClienteController();
         }
 
         public void Menu()
