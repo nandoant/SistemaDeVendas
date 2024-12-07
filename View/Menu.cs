@@ -51,7 +51,7 @@ namespace SistemaDeVendas.View
             Console.WriteLine("1. Cliente");
             Console.WriteLine("2. Produtos");
             Console.WriteLine("3. Vendas");
-            Console.WriteLine("0. Sair");
+            Console.WriteLine("0. Encerrar Programa");
             Console.Write("Escolha uma opção: ");
         }
 

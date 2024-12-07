@@ -32,8 +32,8 @@ namespace SistemaDeVendas.Service
             }
 
             //produtos
-            if(venda.getProdutos().Length == 0) { throw new Exception("A venda deve conter pelo menos um produto."); }
-            foreach (Produto produto in venda.getProdutos())
+            if(venda.getProdutos().Count == 0) { throw new Exception("A venda deve conter pelo menos um produto."); }
+            foreach (Produto produto in venda.getProdutos().Keys)
             {
                 if(produto == null) { throw new Exception("Venda possui um produto invalido."); }
                 if(produtoRepository.buscarPorID(produto.Codigo) == null) { throw new Exception("Venda possui um produto que nao existe."); }

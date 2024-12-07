@@ -84,6 +84,23 @@ namespace SistemaDeVendas.Service
             return produto;
         }
 
+    public Produto buscarPorId(int id, bool apenasConsulta)
+    {
+        if (id <= 0)
+        {
+            throw new Exception("ID inválido.");
+        }
+
+        var produto = produtoRepo.buscarPorID(id);
+
+        if (produto == null)
+        {
+            return null;
+        }
+
+        return produto;
+    }
+
         public bool remover(int id)
         {
             if (id <= 0)

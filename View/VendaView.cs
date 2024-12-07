@@ -61,7 +61,7 @@ namespace SistemaDeVendas.View
             Console.WriteLine("2. Buscar Venda");
             Console.WriteLine("3. Listar Vendas");
             Console.WriteLine("4. Totalizacao");
-            Console.WriteLine("0. Sair");
+            Console.WriteLine("0. Voltar");
             Console.Write("Escolha uma opcao: ");
         }
 
@@ -78,7 +78,7 @@ namespace SistemaDeVendas.View
                 Console.WriteLine("Venda nao encontrada");
                 return;
             }
-
+            Console.Clear();
             venda.Exibir();
         }
     
@@ -94,7 +94,7 @@ namespace SistemaDeVendas.View
             }
             foreach (var venda in vendaService.listar())
             {
-                Console.WriteLine("ID: "+venda.Id+", Valor Total: "+venda.getValorTotal());
+                Console.WriteLine("ID: "+venda.Id+", Valor Total: "+venda.getValorTotal().ToString("0.00"));
             }
         }
 
@@ -105,7 +105,7 @@ namespace SistemaDeVendas.View
             double total = vendas.Sum(venda => venda.getValorTotal());
 
             Console.WriteLine("\n=== Totalizacao ===");
-            Console.WriteLine("Numero de Vendas: "+count+", Valor Total: "+total);
+            Console.WriteLine("Numero de Vendas: "+ count +", Valor Total: "+ total.ToString("0.00"));
         }
 
 
@@ -162,7 +162,7 @@ namespace SistemaDeVendas.View
                 AdicionarProdutoNaVenda(venda, produtoId);
             }
 
-            if(venda.getProdutos().Length == 0) { return null; }
+            if(venda.getProdutos().Count == 0) { return null; }
             return venda;
         }
 
@@ -175,7 +175,7 @@ namespace SistemaDeVendas.View
 
         private void AdicionarProdutoNaVenda(Venda venda, int produtoId)
         {
-            var produto = produtoService.buscarPorId(produtoId);
+            var produto = produtoService.buscarPorId(produtoId, true);
             
             if (produto == null)
             {
