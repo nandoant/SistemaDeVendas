@@ -10,11 +10,11 @@ namespace SistemaDeVendas.View
 {
     internal class ProdutoView
     {
-        private ProdutoController produtoService;
+        private ProdutoController produtoController;
         
         public ProdutoView()
         {
-            produtoService = new ProdutoController();
+            produtoController = new ProdutoController();
         }
 
         public void Menu()
@@ -23,12 +23,12 @@ namespace SistemaDeVendas.View
             do
             {
                 Console.Clear();
-                Console.WriteLine("=== MENU DE PRODUTOS ===");
-                Console.WriteLine("1 - Cadastrar Produto");
-                Console.WriteLine("2 - Listar Produtos");
-                Console.WriteLine("3 - Buscar Produto");
-                Console.WriteLine("4 - Excluir Produto");
-                Console.WriteLine("0 - Voltar");
+                Console.WriteLine("=== Menu de Produtos ===");
+                Console.WriteLine("1. Cadastrar Produto");
+                Console.WriteLine("2. Listar Produtos");
+                Console.WriteLine("3. Buscar Produto");
+                Console.WriteLine("4. Excluir Produto");
+                Console.WriteLine("0. Voltar");
                 Console.Write("\nEscolha uma opção: ");
 
                 opcao = Input.LerInteiro(0, 4);
@@ -69,7 +69,7 @@ namespace SistemaDeVendas.View
             double preco = Input.LerDouble(1);
             try
             {
-                produtoService.adicionar(marca, modelo, descricao, preco);
+                produtoController.adicionar(marca, modelo, descricao, preco);
                 Console.WriteLine("\nProduto cadastrado com sucesso!");
             }
             catch (Exception ex)
@@ -83,12 +83,12 @@ namespace SistemaDeVendas.View
         {
             try
             {
-                if (produtoService.listar() == null)
+                if (produtoController.listar() == null)
                 {
                     Console.WriteLine("Nenhum produto cadastrado.");
                     return;
                 }
-                produtoService.Exibirlista();
+                produtoController.Exibirlista();
             }
             catch (Exception ex)
             {
@@ -103,7 +103,7 @@ namespace SistemaDeVendas.View
             int codigo = Input.LerInteiro(0);
             try
             {
-                produtoService.buscarPorId(codigo);
+                produtoController.buscarPorId(codigo);
             }
             catch (Exception ex)
             {
@@ -119,7 +119,7 @@ namespace SistemaDeVendas.View
             int codigo = Input.LerInteiro(0);
             try
             {
-                produtoService.remover(codigo);
+                produtoController.remover(codigo);
             }
             catch (Exception ex)
             {

@@ -12,9 +12,9 @@ namespace SistemaDeVendas.View
 {
     internal class VendaView
     {
-        private VendaController vendaService = new VendaController();
-        private ClienteController clienteService = new ClienteController();
-        private ProdutoController produtoService = new ProdutoController();
+        private VendaController vendaController = new VendaController();
+        private ClienteController clienteController = new ClienteController();
+        private ProdutoController produtoController = new ProdutoController();
 
         public void Menu()
         {
@@ -27,24 +27,12 @@ namespace SistemaDeVendas.View
 
                 switch (opcao)
                 {
-                    case 0:
-                        executando = false;
-                        break;
-                    case 1:
-                        AdicionarVenda();
-                        break;
-                    case 2:
-                        BuscarVenda();
-                        break;
-                    case 3:
-                        ListarVendas();
-                        break;
-                    case 4:
-                        ExibirTotalizacao();
-                        break;
-                    default:
-                        Console.WriteLine("Opção inválida, tente novamente.");
-                        break;
+                    case 0: executando = false; break;
+                    case 1: AdicionarVenda(); break;
+                    case 2: BuscarVenda(); break;
+                    case 3: ListarVendas(); break;
+                    case 4: ExibirTotalizacao(); break;
+                    default: Console.WriteLine("Opção inválida, tente novamente."); break;
                 }
 
                 if (opcao != 0)
@@ -104,7 +92,7 @@ namespace SistemaDeVendas.View
         {
             try
             {
-                return vendaService.CriarVenda(clienteId);
+                return vendaController.CriarVenda(clienteId);
             }
             catch (Exception ex)
             {
@@ -119,11 +107,11 @@ namespace SistemaDeVendas.View
             while (true)
             {
                 Console.Clear();
-                ExibirProdutosDisponiveis();
+                var produtos = ExibirProdutosDisponiveis();
                 ExibirMensagemSeExistir(mensagem);
 
                 Console.Write("\nDigite o ID do Produto (0 para finalizar): ");
-                int produtoId = Input.LerInteiro(0);
+                int produtoId = Input.LerInteiro(0, produtos.Length);
                 if (produtoId == 0)
                     break;
 
@@ -144,7 +132,7 @@ namespace SistemaDeVendas.View
         {
             try
             {
-                vendaService.AdicionarProduto(venda, produtoId);
+                vendaController.AdicionarProduto(venda, produtoId);
                 mensagem.Append("\nProduto adicionado com sucesso.");
             }
             catch (Exception ex)
@@ -157,7 +145,7 @@ namespace SistemaDeVendas.View
         {
             try
             {
-                vendaService.adicionar(venda);
+                vendaController.adicionar(venda);
                 Console.WriteLine("\nVenda adicionada com sucesso!");
                 ExibirVenda(venda);
             }
@@ -171,7 +159,7 @@ namespace SistemaDeVendas.View
         {
             Console.Clear();
             Console.WriteLine("\nClientes disponíveis:");
-            var clientes = clienteService.listar();
+            var clientes = clienteController.listar();
             if (clientes == null)
             {
                 Console.WriteLine("Nenhum cliente cadastrado.");
@@ -183,15 +171,9 @@ namespace SistemaDeVendas.View
             }
 
             Console.Write("\nDigite o ID do Cliente: ");
-            int idCliente = Input.LerInteiro(-1);
+            int idCliente = Input.LerInteiro(1,clientes.Length);
 
-            if (idCliente == -1)
-            {
-                Console.WriteLine("Cliente inválido.");
-                return -1;
-            }
-
-            var clienteEncontrado = clienteService.buscar(idCliente);
+            var clienteEncontrado = clienteController.buscar(idCliente);
             if (clienteEncontrado == null)
             {
                 return -1;
@@ -200,20 +182,22 @@ namespace SistemaDeVendas.View
             return idCliente;
         }
 
-        private void ExibirProdutosDisponiveis()
+        private Produto[] ExibirProdutosDisponiveis()
         {
             Console.Clear();
             Console.WriteLine("\nProdutos disponíveis:");
-            var produtos = produtoService.listar();
+            var produtos = produtoController.listar();
             if (produtos == null)
             {
                 Console.WriteLine("Nenhum produto cadastrado.");
-                return;
+                return null;
             }
             foreach (var produto in produtos)
             {
                 produto.Exibir();
+                System.Console.WriteLine("-------------------------------------");
             }
+            return produtos;
         }
 
         public void BuscarVenda()
@@ -224,7 +208,7 @@ namespace SistemaDeVendas.View
 
             try
             {
-                var venda = vendaService.buscar(idVenda);
+                var venda = vendaController.buscar(idVenda);
                 ExibirVenda(venda);
             }
             catch (Exception ex)
@@ -238,7 +222,7 @@ namespace SistemaDeVendas.View
             Console.Clear();
             try
             {
-                var vendas = vendaService.listar();
+                var vendas = vendaController.listar();
                 if (vendas.Length == 0)
                 {
                     Console.WriteLine("\nNenhuma venda cadastrada.");
@@ -261,7 +245,7 @@ namespace SistemaDeVendas.View
             Console.Clear();
             try
             {
-                var vendas = vendaService.listar();
+                var vendas = vendaController.listar();
                 if (vendas.Length == 0)
                 {
                     Console.WriteLine("\nNenhuma venda cadastrada.");
