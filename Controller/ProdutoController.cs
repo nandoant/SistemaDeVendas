@@ -60,7 +60,7 @@ namespace SistemaDeVendas.Service
             foreach (var produto in produtos.Values)
             {
                 produto.Exibir();
-                Console.WriteLine("\n\t--------------------------");
+                Console.WriteLine("------------------------------");
             }
         }
 

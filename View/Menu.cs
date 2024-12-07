@@ -42,7 +42,7 @@ namespace SistemaDeVendas.View
                 }
             }
 
-            Console.WriteLine("Adeus!");
+            Console.WriteLine("Adios!");
         }
 
         private void ExibirMenuPrincipal()

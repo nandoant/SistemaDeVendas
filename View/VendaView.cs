@@ -110,6 +110,11 @@ namespace SistemaDeVendas.View
                 var produtos = ExibirProdutosDisponiveis();
                 ExibirMensagemSeExistir(mensagem);
 
+                if(produtos == null)
+                {
+                    return;
+                }
+
                 Console.Write("\nDigite o ID do Produto (0 para finalizar): ");
                 int produtoId = Input.LerInteiro(0, produtos.Length);
                 if (produtoId == 0)

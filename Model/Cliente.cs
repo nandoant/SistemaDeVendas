@@ -72,11 +72,10 @@ namespace SistemaDeVendas.Model
 
         public void Exibir()
         {
-            Console.WriteLine("\n-------------------------------------");
-            Console.WriteLine($"Código do Cliente: {this.codigo}");
-            Console.WriteLine($"Nome do Cliente: {this.nome}");
-            Console.WriteLine($"Idade do Cliente: {this.idade}");
-            Console.WriteLine($"CPF do Cliente: {this.cpf}");
+            Console.WriteLine($"\tID: {this.codigo}");
+            Console.WriteLine($"\tNome: {this.nome}");
+            Console.WriteLine($"\tIdade: {this.idade}");
+            Console.WriteLine($"\tCPF: {this.cpf}");
         }
     }
 }
