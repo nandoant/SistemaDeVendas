@@ -65,8 +65,8 @@ namespace SistemaDeVendas.View
             Console.Write("Descrição: ");
             string descricao = Input.LerString();
             
-            Console.Write("Preço: ");
-            double preco = Input.LerDouble(0);
+            Console.Write("Preço (aceita apenas duas casas decimais, exemplo de formato valido: 3000,05): ");
+            double preco = Input.LerDouble(1);
             try
             {
                 produtoService.adicionar(marca, modelo, descricao, preco);
