@@ -18,11 +18,11 @@ namespace SistemaDeVendas.View
         public void Menu()
         {
             bool executando = true;
-            while (executando) 
+            while (executando)
             {
                 Console.Clear();
                 exibirMenu();
-                int opcao = Input.LerInteiro(0,4);
+                int opcao = Input.LerInteiro(0, 4);
                 Console.Clear();
                 switch (opcao)
                 {
@@ -45,13 +45,13 @@ namespace SistemaDeVendas.View
                         Console.WriteLine("Opcao invalida. Tente novamente.");
                         break;
                 }
-                if (opcao != 0) 
+                if (opcao != 0)
                 {
                     Console.WriteLine("\nPressione qualquer tecla para continuar...");
                     Console.ReadKey();
                 }
             }
-            
+
         }
 
         public void exibirMenu()
@@ -71,7 +71,7 @@ namespace SistemaDeVendas.View
             Console.WriteLine("Digite o codigo da venda:");
             int vendaId = Input.LerInteiro(0);
 
-            Venda venda= vendaService.buscar(vendaId);
+            Venda venda = vendaService.buscar(vendaId);
 
             if (venda == null)
             {
@@ -80,8 +80,9 @@ namespace SistemaDeVendas.View
             }
 
             venda.Exibir();
-
         }
+    
+        
 
         public void ListarVendas()
         {
@@ -111,6 +112,11 @@ namespace SistemaDeVendas.View
         public void AdicionarVenda()
         {
             int clienteId = ObterIdCliente();
+            if (clienteId == -1)
+            {
+                Console.WriteLine("\nVenda cancelada - Nao possui cliente");
+                return;
+            }
             
             var venda = CriarVendaComProdutos(clienteId);
             
@@ -134,7 +140,7 @@ namespace SistemaDeVendas.View
             {
                 Console.WriteLine("Pressione qualquer tecla para continuar...");
                 Console.ReadKey();
-                return 0;
+                return -1;
             }
             return idCliente;
         }
@@ -148,7 +154,7 @@ namespace SistemaDeVendas.View
                 ExibirProdutosDisponiveis();
 
                 Console.Write("\nDigite o ID do Produto (0 para finalizar): ");
-                int produtoId = Input.LerInteiro();
+                int produtoId = Input.LerInteiro(0);
 
                 if (produtoId == 0)
                     break;

@@ -70,7 +70,7 @@ namespace SistemaDeVendas.Service
 
         public Cliente buscar(int codigo)
         {
-            if(codigo <= 0)
+            if(codigo < 0)
             {
                 throw new Exception("Código do cliente inválido.");
             }
