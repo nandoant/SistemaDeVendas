@@ -61,10 +61,11 @@ namespace SistemaDeVendas.Service
             }
 
             Console.WriteLine("=== LISTA DE CLIENTES ===");
+            Console.WriteLine("Clientes:");
             foreach(var cliente in clientes.Values)
             {
                 cliente.Exibir();
-                Console.WriteLine("\n-------------------------------------");
+                Console.WriteLine("-------------------------------------");
             }
         }
 
