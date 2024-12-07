@@ -10,28 +10,33 @@ namespace SistemaDeVendas.Model
     {
         private int id;
         private int idCliente;
-        private Dictionary<int, Produto> carrinho;
+        private Dictionary<Produto, int> carrinho;
 
         public Venda(int idCliente) 
         {
             this.idCliente = idCliente;
-            this.carrinho = new Dictionary<int, Produto>();
+            this.carrinho = new Dictionary<Produto, int>();
         }
 
         public void AdicionarProduto(Produto produto)
         {
-            if (produto != null && !carrinho.ContainsKey(produto.Codigo))
+            if (carrinho.ContainsKey(produto))
             {
-                carrinho.Add(produto.Codigo, produto);
+                carrinho[produto]++;
             }
+            else
+            {
+                carrinho.Add(produto, 1);
+            }
+
         }
 
         public double getValorTotal()
         {
-            double total = 0;
-            foreach (var item in carrinho.Values)
+            double total = 0.0;
+            foreach (var item in carrinho.Keys)
             {
-                total += item.Preco;
+                total += item.Preco * carrinho[item];
             }
             return total;
         }
@@ -56,27 +61,21 @@ namespace SistemaDeVendas.Model
             }
         }
 
-        public Produto[] getProdutos()
+        public Dictionary<Produto, int> getProdutos()
         {
-            return carrinho.Values.ToArray();   
+            return carrinho;   
         }
 
         public Produto getProduto(int produtoId)
         {
-            if (carrinho.TryGetValue(id, out var produto))
+            foreach (var produto in carrinho.Keys)
             {
-                return produto;
+                if (produto.Codigo == produtoId)
+                {
+                    return produto;
+                }
             }
-            else
-            {
-                return null;
-
-            }
-        }
-
-        public void adicionarProduto(Produto produto)
-        {
-            carrinho.Add(produto.Codigo,produto);
+            return null;
         }
 
         public void Exibir()
@@ -84,13 +83,18 @@ namespace SistemaDeVendas.Model
             Console.WriteLine("\n-------------------------------------");
             Console.WriteLine("ID da Venda: " + this.Id);
             Console.WriteLine("ID do Cliente: " + this.IdCliente);
+            Console.WriteLine("-------------------------------------");
             Console.WriteLine("Produtos:");
-            foreach(var produto in carrinho.Values)
+            foreach(var produto in carrinho.Keys)
             {
                 produto.Exibir();
+                Console.WriteLine("Quantidade: " + carrinho[produto]);
+                double subtotal = produto.Preco * carrinho[produto];
+                Console.WriteLine("Subtotal: " + subtotal.ToString("0.00"));
                 Console.WriteLine("-------------------------------------");
             }
-            Console.WriteLine("Valor Total: " + getValorTotal());
+            //exibir valor total considerando apenas 2 casas decimais, ex: 3000.00
+            Console.WriteLine("Valor Total: " + getValorTotal().ToString("0.00"));
             Console.WriteLine("-------------------------------------");
         }
     }

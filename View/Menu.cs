@@ -42,17 +42,17 @@ namespace SistemaDeVendas.View
                 }
             }
 
-            Console.WriteLine("Adeus!");
+            Console.WriteLine("Adios!");
         }
 
         private void ExibirMenuPrincipal()
         {
-            Console.WriteLine("\n=== Sistema de Vendas ===");
+            Console.WriteLine("=== Sistema de Vendas ===");
             Console.WriteLine("1. Cliente");
             Console.WriteLine("2. Produtos");
             Console.WriteLine("3. Vendas");
-            Console.WriteLine("0. Sair");
-            Console.Write("Escolha uma opção: ");
+            Console.WriteLine("0. Encerrar Programa");
+            Console.Write("\nEscolha uma opção: ");
         }
 
     }

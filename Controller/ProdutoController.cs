@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 
 namespace SistemaDeVendas.Service
 {
-    internal class ProdutoService
+    internal class ProdutoController
     {
         private ProdutoRepository produtoRepo = ProdutoRepository.getInstance();
         private VendaRepository vendaRepo = VendaRepository.getInstance();
@@ -60,7 +60,7 @@ namespace SistemaDeVendas.Service
             foreach (var produto in produtos.Values)
             {
                 produto.Exibir();
-                Console.WriteLine("\n\t--------------------------");
+                Console.WriteLine("------------------------------");
             }
         }
 
@@ -83,6 +83,23 @@ namespace SistemaDeVendas.Service
             produto.Exibir();
             return produto;
         }
+
+    public Produto buscarPorId(int id, bool apenasConsulta)
+    {
+        if (id <= 0)
+        {
+            throw new Exception("ID inválido.");
+        }
+
+        var produto = produtoRepo.buscarPorID(id);
+
+        if (produto == null)
+        {
+            return null;
+        }
+
+        return produto;
+    }
 
         public bool remover(int id)
         {

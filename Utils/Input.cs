@@ -34,7 +34,21 @@ namespace SistemaDeVendas.Utils
             {
                 try
                 {
-                    string entrada = Console.ReadLine();
+                    bool executando = true;
+                    String entrada = null;
+
+                    while (executando){
+                    entrada = Console.ReadLine();
+                    if(entrada != null)
+                        if(entrada.Contains("."))
+                            System.Console.WriteLine("Utilize vírgula ao invés de ponto para separar decimais. Tente novamente: ");
+                        else if(entrada.Contains(","))
+                            if(entrada.Length - entrada.IndexOf(",") > 3)
+                                System.Console.WriteLine("Utilize no máximo 2 casas decimais. Tente novamente: ");
+                            else
+                                executando = false;
+                    }
+
                     if (double.TryParse(entrada, out double valor) && valor >= minimo && valor <= maximo)
                     {
                         return valor;

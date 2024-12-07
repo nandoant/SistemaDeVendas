@@ -8,16 +8,23 @@ using System.Threading.Tasks;
 
 namespace SistemaDeVendas.Service
 {
-    internal class ClienteService
+    internal class ClienteController
     {
         private ClienteRepository clienteRepo = ClienteRepository.getInstance();
         private VendaRepository vendaRepo = VendaRepository.getInstance();
 
         public bool adicionar(string nome, int idade, string cpf)
         {
-            if(string.IsNullOrWhiteSpace(nome) || idade <= 0 || string.IsNullOrWhiteSpace(cpf))
+            if(string.IsNullOrWhiteSpace(nome) || idade < 0 || string.IsNullOrWhiteSpace(cpf))
             {
-                throw new Exception("Todos os campos são obrigatórios e a idade deve ser maior que zero");
+                throw new Exception("Todos os campos são obrigatórios e a idade deve ser maior que zero.");
+            }
+
+            Dictionary<int, Cliente> clientes = clienteRepo.listar();
+            foreach(var cliente in clientes)
+            {
+                if (cliente.Value.Cpf == cpf)
+                    throw new Exception("Já existe um cliente cadastrado com o Cpf informado.");
             }
 
             try
@@ -28,7 +35,7 @@ namespace SistemaDeVendas.Service
             }
             catch (Exception)
             {
-                throw new Exception("Erro ao cadastrar o cliente. Verifique os dados e tente novamente");
+                throw new Exception("Erro ao cadastrar o cliente. Verifique os dados e tente novamente.");
             }
         }
 
@@ -54,16 +61,17 @@ namespace SistemaDeVendas.Service
             }
 
             Console.WriteLine("=== LISTA DE CLIENTES ===");
+            Console.WriteLine("Clientes:");
             foreach(var cliente in clientes.Values)
             {
                 cliente.Exibir();
-                Console.WriteLine("\n\t--------------------------");
+                Console.WriteLine("-------------------------------------");
             }
         }
 
         public Cliente buscar(int codigo)
         {
-            if(codigo <= 0)
+            if(codigo < 0)
             {
                 throw new Exception("Código do cliente inválido.");
             }
