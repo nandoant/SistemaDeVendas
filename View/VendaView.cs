@@ -48,11 +48,11 @@ namespace SistemaDeVendas.View
         {
             Console.Clear();
             Console.WriteLine("===== Menu de Vendas =====");
-            Console.WriteLine("1 - Adicionar Venda");
-            Console.WriteLine("2 - Buscar Venda");
-            Console.WriteLine("3 - Listar Vendas");
-            Console.WriteLine("4 - Exibir Totalização das Vendas");
-            Console.WriteLine("0 - Voltar");
+            Console.WriteLine("1. Adicionar Venda");
+            Console.WriteLine("2. Buscar Venda");
+            Console.WriteLine("3. Listar Vendas");
+            Console.WriteLine("4. Exibir Totalização das Vendas");
+            Console.WriteLine("0. Voltar");
         }
 
         public void AdicionarVenda()
