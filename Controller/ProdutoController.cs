@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 
 namespace SistemaDeVendas.Service
 {
-    internal class ProdutoService
+    internal class ProdutoController
     {
         private ProdutoRepository produtoRepo = ProdutoRepository.getInstance();
         private VendaRepository vendaRepo = VendaRepository.getInstance();
