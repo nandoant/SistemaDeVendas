@@ -6,5 +6,5 @@ Fernando Antonio <br>
 
 ### To-do List
 <pre>
-  [ ] Não permitir que o nome contenha numeros
+[ ] Não permitir que o nome contenha numeros
 </pre>
