@@ -10,11 +10,11 @@ namespace SistemaDeVendas.View
 {
     internal class ClienteView
     {
-        private ClienteService clienteService;
+        private ClienteController clienteController;
 
         public ClienteView()
         {
-            clienteService = new ClienteService();
+            clienteController = new ClienteController();
         }
 
         public void Menu()
@@ -24,12 +24,12 @@ namespace SistemaDeVendas.View
             do
             {
                 Console.Clear();
-                Console.WriteLine("=== MENU DE CLIENTES ===");
-                Console.WriteLine("1 - Cadastrar Cliente");
-                Console.WriteLine("2 - Listar Clientes");
-                Console.WriteLine("3 - Buscar Cliente");
-                Console.WriteLine("4 - Excluir Cliente");
-                Console.WriteLine("0 - Voltar");
+                Console.WriteLine("=== Menu de Clientes ===");
+                Console.WriteLine("1. Cadastrar Cliente");
+                Console.WriteLine("2. Listar Clientes");
+                Console.WriteLine("3. Buscar Cliente");
+                Console.WriteLine("4. Excluir Cliente");
+                Console.WriteLine("0. Voltar");
                 Console.Write("\nEscolha uma opção: ");
 
                 opcao = Input.LerInteiro(0, 4);
@@ -56,18 +56,18 @@ namespace SistemaDeVendas.View
         {
             Console.WriteLine("=== CADASTRO DE CLIENTE ===\n");
 
-            Console.WriteLine("Nome: ");
+            Console.Write("Nome: ");
             string nome = Input.LerString();
 
-            Console.WriteLine("Idade: ");
-            int idade = Input.LerInteiro(0);
+            Console.Write("Idade: ");
+            int idade = Input.LerInteiro(5,200);
 
-            Console.WriteLine("Cpf: ");
-            string cpf = Input.LerString();
+            Console.Write("Cpf: ");
+            string cpf = Input.LerString(1,15);
 
             try
             {
-                clienteService.adicionar(nome, idade, cpf);
+                clienteController.adicionar(nome, idade, cpf);
                 Console.WriteLine("\nCliente adicionado com sucesso!");
             }
             catch (Exception ex) 
@@ -80,12 +80,12 @@ namespace SistemaDeVendas.View
         {
             try
             {
-                if(clienteService.listar() == null)
+                if(clienteController.listar() == null)
                 {
                     Console.WriteLine("Nenhum cliente cadastrado.");
                     return;
                 }
-                clienteService.exibirLista();
+                clienteController.exibirLista();
             }
             catch (Exception ex)
             {
@@ -101,7 +101,7 @@ namespace SistemaDeVendas.View
 
             try
             {
-                clienteService.buscar(codigo);
+                clienteController.buscar(codigo);
             }
             catch(Exception ex)
             {
@@ -117,7 +117,7 @@ namespace SistemaDeVendas.View
 
             try
             {
-                clienteService.remover(codigo);
+                clienteController.remover(codigo);
             }
             catch (Exception ex)
             {
