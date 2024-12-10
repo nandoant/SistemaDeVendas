@@ -22,7 +22,7 @@ namespace SistemaDeVendas.View
             while (executando)
             {
                 ExibirMenu();
-                Console.Write("\nEscolha uma opção: ");
+                Console.Write("\nEscolha uma opcao: ");
                 int opcao = Input.LerInteiro(0);
 
                 switch (opcao)
@@ -32,7 +32,7 @@ namespace SistemaDeVendas.View
                     case 2: BuscarVenda(); break;
                     case 3: ListarVendas(); break;
                     case 4: ExibirTotalizacao(); break;
-                    default: Console.WriteLine("Opção inválida, tente novamente."); break;
+                    default: Console.WriteLine("Opcao invalida, tente novamente."); break;
                 }
 
                 if (opcao != 0)
