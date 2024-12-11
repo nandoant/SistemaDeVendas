@@ -63,7 +63,7 @@ namespace SistemaDeVendas.View
             int idade = Input.LerInteiro(18,140);
 
             Console.Write("Cpf: ");
-            string cpf = Input.LerCPF(10,12);
+            string cpf = Input.LerCPF(11,11);
 
             try
             {
