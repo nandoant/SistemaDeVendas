@@ -41,7 +41,7 @@ namespace SistemaDeVendas.Service
             var produtos = produtoRepo.listar();
             if (produtos == null || produtos.Count == 0)
             {
-                return null;
+                return null; 
             }
 
             return produtos.Values.ToArray();

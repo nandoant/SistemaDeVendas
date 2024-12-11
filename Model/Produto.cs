@@ -40,10 +40,10 @@ namespace SistemaDeVendas.Model
         }
 
        public String Descricao
-        {
+       {
             get { return this.descricao; }
             set { descricao = value;}
-        }
+       }
 
         public decimal Preco
         {
