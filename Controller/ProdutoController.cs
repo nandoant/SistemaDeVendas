@@ -16,12 +16,12 @@ namespace SistemaDeVendas.Service
         private ProdutoRepository produtoRepo = ProdutoRepository.getInstance();
         private VendaRepository vendaRepo = VendaRepository.getInstance();
 
-        public bool adicionar(string marca, string modelo, string descricao, double preco)
+        public bool adicionar(string marca, string modelo, string descricao, decimal preco)
         {
             if (string.IsNullOrWhiteSpace(marca) || string.IsNullOrWhiteSpace(modelo) || 
                 string.IsNullOrWhiteSpace(descricao) || preco <= 0)
             {
-                throw new Exception("Todos os campos são obrigatórios e o preço deve ser maior que zero.");
+                throw new Exception("Todos os campos sao obrigatorios e o preço deve ser maior que zero.");
             }
 
             try
@@ -52,7 +52,7 @@ namespace SistemaDeVendas.Service
             
             if (produtos == null || produtos.Count == 0)
             {
-                Console.WriteLine("Não há produtos cadastrados.");
+                Console.WriteLine("Nao ha produtos cadastrados.");
                 return;
             }
 
@@ -68,14 +68,14 @@ namespace SistemaDeVendas.Service
         {
             if (id <= 0)
             {
-                throw new Exception("ID inválido.");
+                throw new Exception("ID invalido.");
             }
 
             var produto = produtoRepo.buscarPorID(id);
             
             if (produto == null)
             {
-                Console.WriteLine($"Produto com ID {id} não encontrado.");
+                Console.WriteLine($"Produto com ID {id} nao encontrado.");
                 return null;
             }
 
@@ -88,7 +88,7 @@ namespace SistemaDeVendas.Service
     {
         if (id <= 0)
         {
-            throw new Exception("ID inválido.");
+            throw new Exception("ID invalido.");
         }
 
         var produto = produtoRepo.buscarPorID(id);
@@ -105,14 +105,14 @@ namespace SistemaDeVendas.Service
         {
             if (id <= 0)
             {
-                throw new Exception("ID inválido.");
+                throw new Exception("ID invalido.");
             }
 
             var produto = produtoRepo.buscarPorID(id);
             
             if (produto == null)
             {
-                Console.WriteLine($"Produto com ID {id} não encontrado.");
+                Console.WriteLine($"Produto com ID {id} nao encontrado.");
                 return false;
             }
 
@@ -124,14 +124,14 @@ namespace SistemaDeVendas.Service
                     if (produto.Codigo == venda.Id)
                     {
                         throw new Exception(
-                            $"Não é possível excluir este produto, pois está vinculado à venda {venda.Id}");
+                            $"Nao e possivel excluir este produto, pois esta vinculado a uma venda");
                     }
                 }
             }
 
             if (produtoRepo.excluir(id) != null)
             {
-                Console.WriteLine("Produto excluído com sucesso!");
+                Console.WriteLine("Produto excluido com sucesso!");
                 return true;
             }
 

@@ -25,13 +25,13 @@ namespace SistemaDeVendas.Service
         {
             if (clienteId <= 0)
             {
-                throw new Exception("ID de cliente inválido.");
+                throw new Exception("ID de cliente invalido.");
             }
 
             var cliente = clienteRepository.buscar(clienteId);
             if (cliente == null)
             {
-                throw new Exception("Cliente não encontrado.");
+                throw new Exception("Cliente nao encontrado.");
             }
 
             return new Venda(clienteId);
@@ -41,13 +41,13 @@ namespace SistemaDeVendas.Service
         {
             if (venda == null)
             {
-                throw new Exception("Venda não pode ser nula.");
+                throw new Exception("Venda nao pode ser nula.");
             }
 
             var produto = produtoRepository.buscarPorID(produtoId);
             if (produto == null)
             {
-                throw new Exception("Produto não encontrado.");
+                throw new Exception("Produto nao encontrado.");
             }
 
             venda.AdicionarProduto(produto);
@@ -55,21 +55,21 @@ namespace SistemaDeVendas.Service
 
         public void adicionar(Venda venda)
         {
-            if (venda == null) { throw new Exception("Venda inválida."); }
+            if (venda == null) { throw new Exception("Venda invalida."); }
 
-            // Validação do cliente
+            // Validacao do cliente
             var cliente = clienteRepository.buscar(venda.IdCliente);
-            if (cliente == null) { throw new Exception("Venda possui um cliente que não existe."); }
+            if (cliente == null) { throw new Exception("Venda possui um cliente que nao existe."); }
 
-            // Validação dos produtos
+            // Validacao dos produtos
             if (venda.getProdutos().Count == 0) { throw new Exception("A venda deve conter pelo menos um produto."); }
 
             foreach (Produto produto in venda.getProdutos().Keys)
             {
                 if (produto == null)
-                    { throw new Exception("Venda possui um produto inválido."); }
+                    { throw new Exception("Venda possui um produto invalido."); }
                 if (produtoRepository.buscarPorID(produto.Codigo) == null)
-                    { throw new Exception("Venda possui um produto que não existe."); }
+                    { throw new Exception("Venda possui um produto que nao existe."); }
             }
 
             try { vendaRepository.adicionar(venda); }
@@ -80,13 +80,13 @@ namespace SistemaDeVendas.Service
         {
             if (id <= 0)
             {
-                throw new Exception("ID inválido.");
+                throw new Exception("ID invalido.");
             }
 
             var venda = vendaRepository.buscar(id);
             if (venda == null)
             {
-                throw new Exception("Venda não encontrada.");
+                throw new Exception("Venda nao encontrada.");
             }
 
             return venda;

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SistemaDeVendas.Utils
@@ -14,50 +16,120 @@ namespace SistemaDeVendas.Utils
             {
                 try
                 {
-                    string entrada = Console.ReadLine();
+                    string entrada = Console.ReadLine().Trim();
+                    
                     if (int.TryParse(entrada, out int valor) && valor >= minimo && valor <= maximo)
                     {
                         return valor;
                     }
-                    Console.WriteLine($"Entrada inválida. Por favor, digite um número inteiro entre {minimo} e {maximo}.");
+                    Console.WriteLine($"Entrada invalida. Por favor, digite um numero inteiro entre {minimo} e {maximo}.");
                 }
                 catch
                 {
-                    Console.WriteLine("Entrada inválida. Por favor, digite um número inteiro válido.");
+                    Console.WriteLine("Entrada invalida. Por favor, digite um numero inteiro valido.");
                 }
             }
         }
 
-        public static double LerDouble(double minimo = double.MinValue, double maximo = double.MaxValue)
+        public static decimal LerDecimal(decimal minimo = decimal.MinValue, decimal maximo = decimal.MaxValue)
         {
             while (true)
             {
                 try
                 {
-                    bool executando = true;
-                    String entrada = null;
+                    string entrada = Console.ReadLine().Trim();
 
-                    while (executando){
-                    entrada = Console.ReadLine();
-                    if(entrada != null)
-                        if(entrada.Contains("."))
-                            System.Console.WriteLine("Utilize vírgula ao invés de ponto para separar decimais. Tente novamente: ");
-                        else if(entrada.Contains(","))
-                            if(entrada.Length - entrada.IndexOf(",") > 3)
-                                System.Console.WriteLine("Utilize no máximo 2 casas decimais. Tente novamente: ");
-                            else
-                                executando = false;
+                    //substituir o separador decimal
+                    entrada = entrada.Replace('.', ',');
+                    //retirar os zeros iniciais 
+                    entrada = entrada.TrimStart('0');
+
+                    //garantir que a entrada tenha "," como separador decimal
+                    if (!entrada.Contains(",")) 
+                    {
+                        entrada += ",00";
                     }
 
-                    if (double.TryParse(entrada, out double valor) && valor >= minimo && valor <= maximo)
+                    int digitosAposVirgula = entrada.Length - entrada.IndexOf(",") - 1;
+
+                    if(digitosAposVirgula > 2)
+                    {
+                        Console.WriteLine("Entrada invalida. Por favor, digite um numero decimal com no maximo duas casas decimais.");
+                        continue;
+                    }
+                    
+                    //garantir que a entrada contenha sempre no minimo duas casas decimais
+                    if (entrada.Contains(",") && digitosAposVirgula < 3)
+                    {
+                        if (digitosAposVirgula == 1)
+                        {
+                            entrada += "0";
+                        }
+                        else
+                        {
+                            entrada += "00";
+                        }
+                    }
+
+
+                    if (decimal.TryParse(entrada, out decimal valor) && valor >= minimo && valor <= maximo)
                     {
                         return valor;
                     }
-                    Console.WriteLine($"Entrada inválida. Por favor, digite um número entre {minimo} e {maximo}.");
+                    Console.WriteLine($"Entrada invalida. Por favor, digite um numero decimal entre {minimo} e {maximo}.");
                 }
                 catch
                 {
-                    Console.WriteLine("Entrada inválida. Por favor, digite um número válido.");
+                    Console.WriteLine("Entrada invalida. Por favor, digite um numero decimal valido.");
+                }
+            }
+        }
+
+        public static string LerCPF(int minLength = 11, int maxLength = 11)
+        {
+            while (true)
+            {
+                try
+                {
+                    string entrada = Console.ReadLine().Trim();
+
+                    if (!string.IsNullOrEmpty(entrada) &&
+                        entrada.Length >= minLength &&
+                        entrada.Length <= maxLength &&
+                        Regex.IsMatch(entrada, @"^[0-9]+$"))
+                    {
+                        return entrada;
+                    }
+                    Console.WriteLine($"Entrada invalida. O CPF deve conter 11 digitos numericos.");
+                }
+                catch
+                {
+                    Console.WriteLine("Entrada invalida. Tente novamente.");
+                }
+            }
+        }
+
+        public static string LerNome(int minLength = 1, int maxLength = 100)
+        {
+            while (true)
+            {
+                try
+                {
+                    string entrada = Console.ReadLine().Trim();
+
+                    if (!string.IsNullOrEmpty(entrada) &&
+                        entrada.Length >= minLength &&
+                        entrada.Length <= maxLength &&
+                        Regex.IsMatch(entrada, @"^[\p{L}\s]+$"))
+                    {
+                        return entrada;
+                    }
+
+                    Console.WriteLine($"Entrada invalida. O nome deve conter entre {minLength} e {maxLength} caracteres e apenas letras e espacos.");
+                }
+                catch
+                {
+                    Console.WriteLine("Entrada invalida. Tente novamente.");
                 }
             }
         }
@@ -68,7 +140,7 @@ namespace SistemaDeVendas.Utils
             {
                 try
                 {
-                    string entrada = Console.ReadLine()?.Trim();
+                    string entrada = Console.ReadLine().Trim();
 
                     if (!string.IsNullOrEmpty(entrada) &&
                         entrada.Length >= minLength &&
@@ -76,11 +148,11 @@ namespace SistemaDeVendas.Utils
                     {
                         return entrada;
                     }
-                    Console.WriteLine($"Entrada inválida. Digite uma texto com tamanho entre {minLength} e {maxLength} caracteres.");
+                    Console.WriteLine($"Entrada invalida. Digite uma texto com tamanho entre {minLength} e {maxLength} caracteres.");
                 }
                 catch
                 {
-                    Console.WriteLine("Entrada inválida. Tente novamente.");
+                    Console.WriteLine("Entrada invalida. Tente novamente.");
                 }
             }
         }

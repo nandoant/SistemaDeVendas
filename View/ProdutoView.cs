@@ -29,7 +29,7 @@ namespace SistemaDeVendas.View
                 Console.WriteLine("3. Buscar Produto");
                 Console.WriteLine("4. Excluir Produto");
                 Console.WriteLine("0. Voltar");
-                Console.Write("\nEscolha uma opção: ");
+                Console.Write("\nEscolha uma opcao: ");
 
                 opcao = Input.LerInteiro(0, 4);
                 Console.Clear();
@@ -40,7 +40,7 @@ namespace SistemaDeVendas.View
                     case 3: BuscarProduto(); break;
                     case 4: ExcluirProduto(); break;
                     case 0: break;
-                    default: Console.WriteLine("Opção inválida!"); break;
+                    default: Console.WriteLine("Opcao invalida!"); break;
                 }
                 
 
@@ -62,11 +62,11 @@ namespace SistemaDeVendas.View
             Console.Write("Modelo: ");
             string modelo = Input.LerString();
             
-            Console.Write("Descrição: ");
+            Console.Write("Descricao: ");
             string descricao = Input.LerString();
             
-            Console.Write("Preço (aceita apenas duas casas decimais, exemplo de formato valido: 3000,05): ");
-            double preco = Input.LerDouble(1);
+            Console.Write("Preço (use '.' ou ',' para separar os centavos): ");
+            decimal preco = Input.LerDecimal(1m);
             try
             {
                 produtoController.adicionar(marca, modelo, descricao, preco);
@@ -99,7 +99,7 @@ namespace SistemaDeVendas.View
         private void BuscarProduto()
         {
             Console.WriteLine("=== BUSCAR PRODUTO ===\n");
-            Console.Write("Digite o código do produto: ");
+            Console.Write("Digite o codigo do produto: ");
             int codigo = Input.LerInteiro(0);
             try
             {
@@ -115,7 +115,7 @@ namespace SistemaDeVendas.View
         private void ExcluirProduto()
         {
             Console.WriteLine("=== EXCLUIR PRODUTO ===\n");
-            Console.Write("Digite o código do produto: ");
+            Console.Write("Digite o codigo do produto: ");
             int codigo = Input.LerInteiro(0);
             try
             {
