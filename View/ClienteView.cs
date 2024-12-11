@@ -30,7 +30,7 @@ namespace SistemaDeVendas.View
                 Console.WriteLine("3. Buscar Cliente");
                 Console.WriteLine("4. Excluir Cliente");
                 Console.WriteLine("0. Voltar");
-                Console.Write("\nEscolha uma opção: ");
+                Console.Write("\nEscolha uma opcao: ");
 
                 opcao = Input.LerInteiro(0, 4);
                 Console.Clear();
@@ -41,7 +41,7 @@ namespace SistemaDeVendas.View
                     case 3: BuscarCliente(); break;
                     case 4: ExcluirCliente(); break;
                     case 0: break;
-                    default: Console.WriteLine("Opção inválida!"); break;
+                    default: Console.WriteLine("Opcao invalida!"); break;
                 }
 
                 if (opcao != 0)
@@ -96,7 +96,7 @@ namespace SistemaDeVendas.View
         private void BuscarCliente()
         {
             Console.WriteLine("=== BUSCAR CLIENTE ===");
-            Console.WriteLine("Digite o código do cliente: ");
+            Console.WriteLine("Digite o codigo do cliente: ");
             int codigo = Input.LerInteiro(0);
 
             try
@@ -112,7 +112,7 @@ namespace SistemaDeVendas.View
         private void ExcluirCliente()
         {
             Console.WriteLine("=== EXCLUIR CLIENTE ===");
-            Console.WriteLine("Digite o código do cliente: ");
+            Console.WriteLine("Digite o codigo do cliente: ");
             int codigo = Input.LerInteiro(0);
 
             try
