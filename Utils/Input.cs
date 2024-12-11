@@ -19,11 +19,11 @@ namespace SistemaDeVendas.Utils
                     {
                         return valor;
                     }
-                    Console.WriteLine($"Entrada inválida. Por favor, digite um número inteiro entre {minimo} e {maximo}.");
+                    Console.WriteLine($"Entrada invalida. Por favor, digite um numero inteiro entre {minimo} e {maximo}.");
                 }
                 catch
                 {
-                    Console.WriteLine("Entrada inválida. Por favor, digite um número inteiro válido.");
+                    Console.WriteLine("Entrada invalida. Por favor, digite um numero inteiro valido.");
                 }
             }
         }
@@ -39,11 +39,11 @@ namespace SistemaDeVendas.Utils
                     {
                         return valor;
                     }
-                    Console.WriteLine($"Entrada inválida. Por favor, digite um número decimal entre {minimo} e {maximo}.");
+                    Console.WriteLine($"Entrada invalida. Por favor, digite um numero decimal entre {minimo} e {maximo}.");
                 }
                 catch
                 {
-                    Console.WriteLine("Entrada inválida. Por favor, digite um número decimal válido.");
+                    Console.WriteLine("Entrada invalida. Por favor, digite um numero decimal valido.");
                 }
             }
         }
@@ -62,11 +62,11 @@ namespace SistemaDeVendas.Utils
                     {
                         return entrada;
                     }
-                    Console.WriteLine($"Entrada inválida. Digite uma texto com tamanho entre {minLength} e {maxLength} caracteres.");
+                    Console.WriteLine($"Entrada invalida. Digite uma texto com tamanho entre {minLength} e {maxLength} caracteres.");
                 }
                 catch
                 {
-                    Console.WriteLine("Entrada inválida. Tente novamente.");
+                    Console.WriteLine("Entrada invalida. Tente novamente.");
                 }
             }
         }
