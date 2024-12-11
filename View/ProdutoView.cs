@@ -66,7 +66,7 @@ namespace SistemaDeVendas.View
             string descricao = Input.LerString();
             
             Console.Write("Preco: ");
-            decimal preco = Input.LerDecimal(1);
+            decimal preco = Input.LerDecimal(1m);
             try
             {
                 produtoController.adicionar(marca, modelo, descricao, preco);

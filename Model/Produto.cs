@@ -62,7 +62,7 @@ namespace SistemaDeVendas.Model
             Console.WriteLine("\tMarca :    {0}", Marca);
             Console.WriteLine("\tModelo:    {0}", Modelo);
             Console.WriteLine("\tDescrição: {0}", Descricao);
-            Console.WriteLine("\tPreço:     {0:C}", Preco);
+            Console.WriteLine("\tPreço:     " + Preco);
         }
 
 
