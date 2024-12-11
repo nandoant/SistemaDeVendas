@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SistemaDeVendas.Utils
@@ -69,11 +70,60 @@ namespace SistemaDeVendas.Utils
                     {
                         return valor;
                     }
-                    Console.WriteLine($"Entrada inválida. Por favor, digite um número decimal entre {minimo} e {maximo}.");
+                    Console.WriteLine($"Entrada invalida. Por favor, digite um numero decimal entre {minimo} e {maximo}.");
                 }
                 catch
                 {
-                    Console.WriteLine("Entrada inválida. Por favor, digite um número decimal válido.");
+                    Console.WriteLine("Entrada invalida. Por favor, digite um numero decimal valido.");
+                }
+            }
+        }
+
+        public static string LerCPF(int minLength = 11, int maxLength = 11)
+        {
+            while (true)
+            {
+                try
+                {
+                    string entrada = Console.ReadLine().Trim();
+
+                    if (!string.IsNullOrEmpty(entrada) &&
+                        entrada.Length >= minLength &&
+                        entrada.Length <= maxLength &&
+                        Regex.IsMatch(entrada, @"^[0-9]+$"))
+                    {
+                        return entrada;
+                    }
+                    Console.WriteLine($"Entrada invalida. O CPF deve conter 11 digitos numericos.");
+                }
+                catch
+                {
+                    Console.WriteLine("Entrada invalida. Tente novamente.");
+                }
+            }
+        }
+
+        public static string LerNome(int minLength = 1, int maxLength = 100)
+        {
+            while (true)
+            {
+                try
+                {
+                    string entrada = Console.ReadLine().Trim();
+
+                    if (!string.IsNullOrEmpty(entrada) &&
+                        entrada.Length >= minLength &&
+                        entrada.Length <= maxLength &&
+                        Regex.IsMatch(entrada, @"^[\p{L}\s]+$"))
+                    {
+                        return entrada;
+                    }
+
+                    Console.WriteLine($"Entrada invalida. O nome deve conter entre {minLength} e {maxLength} caracteres e apenas letras e espacos.");
+                }
+                catch
+                {
+                    Console.WriteLine("Entrada invalida. Tente novamente.");
                 }
             }
         }

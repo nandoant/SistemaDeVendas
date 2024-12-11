@@ -65,7 +65,7 @@ namespace SistemaDeVendas.View
             Console.Write("Descricao: ");
             string descricao = Input.LerString();
             
-            Console.Write("Preco: ");
+            Console.Write("Preco. O '.' será considerado como ',': ");
             decimal preco = Input.LerDecimal(1m);
             try
             {
