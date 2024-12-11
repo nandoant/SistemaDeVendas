@@ -44,29 +44,35 @@ namespace SistemaDeVendas.Utils
                     //retirar os zeros iniciais 
                     entrada = entrada.TrimStart('0');
 
-                    //garantir que a entrada tenha , 
+                    //garantir que a entrada tenha "," como separador decimal
                     if (!entrada.Contains(",")) 
                     {
                         entrada += ",00";
                     }
 
-                    //garantir que a entrada contenha sempre no minimo duas casas decimais
-                    if (entrada.Contains(",") && entrada.Length - entrada.IndexOf(",") < 3)
+                    int digitosAposVirgula = entrada.Length - entrada.IndexOf(",") - 1;
+
+                    if(digitosAposVirgula > 2)
                     {
-                        if (entrada.Length - entrada.IndexOf(",") == 1)
+                        Console.WriteLine("Entrada invalida. Por favor, digite um numero decimal com no maximo duas casas decimais.");
+                        continue;
+                    }
+                    
+                    //garantir que a entrada contenha sempre no minimo duas casas decimais
+                    if (entrada.Contains(",") && digitosAposVirgula < 3)
+                    {
+                        if (digitosAposVirgula == 1)
                         {
-                            entrada += "00";
+                            entrada += "0";
                         }
                         else
                         {
-                            entrada += "0";
+                            entrada += "00";
                         }
                     }
 
 
-
-
-                    if (decimal.TryParse(entrada, NumberStyles.Number, CultureInfo.CurrentCulture, out decimal valor) && valor >= minimo && valor <= maximo)
+                    if (decimal.TryParse(entrada, out decimal valor) && valor >= minimo && valor <= maximo)
                     {
                         return valor;
                     }
