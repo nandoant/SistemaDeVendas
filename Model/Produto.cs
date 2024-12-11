@@ -12,15 +12,13 @@ namespace SistemaDeVendas.Model
         private String marca;
         private String modelo;
         private String descricao;
-        private Double preco;
+        private decimal preco;
 
-        public Produto(String marca, String modelo, String descricao, Double preco) {
-            this.codigo = codigo;
+        public Produto(String marca, String modelo, String descricao, decimal preco) {
             this.marca = marca;
             this.modelo = modelo;
             this.descricao = descricao;
             this.preco = preco;
-
         }
 
         public int Codigo{
@@ -47,7 +45,7 @@ namespace SistemaDeVendas.Model
             set { descricao = value;}
         }
 
-        public Double Preco
+        public decimal Preco
         {
             get { return this.preco; }
             set
@@ -64,7 +62,7 @@ namespace SistemaDeVendas.Model
             Console.WriteLine("\tMarca :    {0}", Marca);
             Console.WriteLine("\tModelo:    {0}", Modelo);
             Console.WriteLine("\tDescrição: {0}", Descricao);
-            Console.WriteLine("\tPreço:     {0:C}", Preco);
+            Console.WriteLine("\tPreço:     " + Preco);
         }
 
 
