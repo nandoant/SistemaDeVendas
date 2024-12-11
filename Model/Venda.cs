@@ -31,9 +31,9 @@ namespace SistemaDeVendas.Model
 
         }
 
-        public double getValorTotal()
+        public decimal getValorTotal()
         {
-            double total = 0.0;
+            decimal total = 0;
             foreach (var item in carrinho.Keys)
             {
                 total += item.Preco * carrinho[item];
@@ -89,7 +89,7 @@ namespace SistemaDeVendas.Model
             {
                 produto.Exibir();
                 Console.WriteLine("Quantidade: " + carrinho[produto]);
-                double subtotal = produto.Preco * carrinho[produto];
+                decimal subtotal = produto.Preco * carrinho[produto];
                 Console.WriteLine("Subtotal: " + subtotal.ToString("0.00"));
                 Console.WriteLine("-------------------------------------");
             }

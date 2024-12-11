@@ -57,13 +57,13 @@ namespace SistemaDeVendas.View
             Console.WriteLine("=== CADASTRO DE CLIENTE ===\n");
 
             Console.Write("Nome: ");
-            string nome = Input.LerString();
+            string nome = Input.LerNome();
 
             Console.Write("Idade: ");
-            int idade = Input.LerInteiro(5,200);
+            int idade = Input.LerInteiro(18,140);
 
             Console.Write("Cpf: ");
-            string cpf = Input.LerString(1,15);
+            string cpf = Input.LerCPF(10,12);
 
             try
             {
