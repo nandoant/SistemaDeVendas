@@ -84,24 +84,7 @@ namespace SistemaDeVendas.Service
             return produto;
         }
 
-    public Produto buscarPorId(int id, bool apenasConsulta)
-    {
-        if (id <= 0)
-        {
-            throw new Exception("ID invalido.");
-        }
-
-        var produto = produtoRepo.buscarPorID(id);
-
-        if (produto == null)
-        {
-            return null;
-        }
-
-        return produto;
-    }
-
-        public bool remover(int id)
+        public Produto buscarPorId(int id, bool apenasConsulta)
         {
             if (id <= 0)
             {
@@ -109,33 +92,50 @@ namespace SistemaDeVendas.Service
             }
 
             var produto = produtoRepo.buscarPorID(id);
-            
+
             if (produto == null)
             {
-                Console.WriteLine($"Produto com ID {id} nao encontrado.");
-                return false;
+                return null;
             }
 
-            if (vendaRepo.contemProduto(id))
-            {
-                var vendas = vendaRepo.listar();
-                foreach (Venda venda in vendas)
+            return produto;
+        }
+
+        public bool remover(int id)
+        {
+                if (id <= 0)
                 {
-                    if (venda.getProduto(id) != null)
+                    throw new Exception("ID invalido.");
+                }
+
+                var produto = produtoRepo.buscarPorID(id);
+            
+                if (produto == null)
+                {
+                    Console.WriteLine($"Produto com ID {id} nao encontrado.");
+                    return false;
+                }
+
+                if (vendaRepo.contemProduto(id))
+                {
+                    var vendas = vendaRepo.listar();
+                    foreach (Venda venda in vendas)
                     {
-                        throw new Exception(
-                            $"Nao e possivel excluir este produto, pois esta vinculado a uma venda");
+                        if (venda.getProduto(id) != null)
+                        {
+                            throw new Exception(
+                                $"Nao e possivel excluir este produto, pois esta vinculado a uma venda");
+                        }
                     }
                 }
-            }
 
-            if (produtoRepo.excluir(id) != null)
-            {
-                Console.WriteLine("Produto excluido com sucesso!");
-                return true;
-            }
+                if (produtoRepo.excluir(id) != null)
+                {
+                    Console.WriteLine("Produto excluido com sucesso!");
+                    return true;
+                }
 
-            return false;
+                return false;
         }
     }
 }
