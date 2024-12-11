@@ -114,7 +114,7 @@ namespace SistemaDeVendas.Utils
                     if (!string.IsNullOrEmpty(entrada) &&
                         entrada.Length >= minLength &&
                         entrada.Length <= maxLength &&
-                        Regex.IsMatch(entrada, @"^[a-zA-Z\s]+$"))
+                        Regex.IsMatch(entrada, @"^[\p{L}\s]+$"))
                     {
                         return entrada;
                     }
