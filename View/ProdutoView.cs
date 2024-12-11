@@ -65,7 +65,7 @@ namespace SistemaDeVendas.View
             Console.Write("Descricao: ");
             string descricao = Input.LerString();
             
-            Console.Write("Preco. O '.' será considerado como ',': ");
+            Console.Write("Preço (use '.' ou ',' para separar os centavos): ");
             decimal preco = Input.LerDecimal(1m);
             try
             {
