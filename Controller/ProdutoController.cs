@@ -119,9 +119,9 @@ namespace SistemaDeVendas.Service
             if (vendaRepo.contemProduto(id))
             {
                 var vendas = vendaRepo.listar();
-                foreach (var venda in vendas)
+                foreach (Venda venda in vendas)
                 {
-                    if (produto.Codigo == venda.Id)
+                    if (venda.getProduto(id) != null)
                     {
                         throw new Exception(
                             $"Nao e possivel excluir este produto, pois esta vinculado a uma venda");
