@@ -28,36 +28,22 @@ namespace SistemaDeVendas.Utils
             }
         }
 
-        public static double LerDouble(double minimo = double.MinValue, double maximo = double.MaxValue)
+        public static decimal LerDecimal(decimal minimo = decimal.MinValue, decimal maximo = decimal.MaxValue)
         {
             while (true)
             {
                 try
                 {
-                    bool executando = true;
-                    String entrada = null;
-
-                    while (executando){
-                    entrada = Console.ReadLine();
-                    if(entrada != null)
-                        if(entrada.Contains("."))
-                            System.Console.WriteLine("Utilize vírgula ao invés de ponto para separar decimais. Tente novamente: ");
-                        else if(entrada.Contains(","))
-                            if(entrada.Length - entrada.IndexOf(",") > 3)
-                                System.Console.WriteLine("Utilize no máximo 2 casas decimais. Tente novamente: ");
-                            else
-                                executando = false;
-                    }
-
-                    if (double.TryParse(entrada, out double valor) && valor >= minimo && valor <= maximo)
+                    string entrada = Console.ReadLine();
+                    if (decimal.TryParse(entrada, out decimal valor) && valor >= minimo && valor <= maximo)
                     {
                         return valor;
                     }
-                    Console.WriteLine($"Entrada inválida. Por favor, digite um número entre {minimo} e {maximo}.");
+                    Console.WriteLine($"Entrada inválida. Por favor, digite um número decimal entre {minimo} e {maximo}.");
                 }
                 catch
                 {
-                    Console.WriteLine("Entrada inválida. Por favor, digite um número válido.");
+                    Console.WriteLine("Entrada inválida. Por favor, digite um número decimal válido.");
                 }
             }
         }

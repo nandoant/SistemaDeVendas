@@ -17,14 +17,14 @@ namespace SistemaDeVendas.Service
         {
             if(string.IsNullOrWhiteSpace(nome) || idade < 0 || string.IsNullOrWhiteSpace(cpf))
             {
-                throw new Exception("Todos os campos são obrigatórios e a idade deve ser maior que zero.");
+                throw new Exception("Todos os campos sao obrigatorios e a idade deve ser maior que zero.");
             }
 
             Dictionary<int, Cliente> clientes = clienteRepo.listar();
             foreach(var cliente in clientes)
             {
                 if (cliente.Value.Cpf == cpf)
-                    throw new Exception("Já existe um cliente cadastrado com o Cpf informado.");
+                    throw new Exception("Ja existe um cliente cadastrado com o Cpf informado.");
             }
 
             try
@@ -56,7 +56,7 @@ namespace SistemaDeVendas.Service
 
             if(clientes == null || clientes.Count == 0)
             {
-                Console.WriteLine("Nao há clientes cadastrados.");
+                Console.WriteLine("Nao ha clientes cadastrados.");
                 return;
             }
 
@@ -73,14 +73,14 @@ namespace SistemaDeVendas.Service
         {
             if(codigo < 0)
             {
-                throw new Exception("Código do cliente inválido.");
+                throw new Exception("Codigo do cliente invalido.");
             }
 
             var cliente = clienteRepo.buscar(codigo);
 
             if(cliente == null)
             {
-                Console.WriteLine($"Cliente com Código {codigo} não encontrado.");
+                Console.WriteLine($"Cliente com Codigo {codigo} nao encontrado.");
                 return null;
             }
 
@@ -93,14 +93,14 @@ namespace SistemaDeVendas.Service
         {
             if(codigo <= 0)
             {
-                throw new Exception("Código do cliente inválido.");
+                throw new Exception("Codigo do cliente invalido.");
             }
 
             var cliente = clienteRepo.buscar(codigo);
 
             if(cliente == null)
             {
-                Console.WriteLine($"Cliente com Código {codigo} não encontrado.");
+                Console.WriteLine($"Cliente com Codigo {codigo} nao encontrado.");
                 return false;
             }
 
@@ -109,13 +109,13 @@ namespace SistemaDeVendas.Service
             {
                 if (cliente.Codigo == venda.IdCliente)
                 {
-                    throw new Exception($"Não é possível excluir este cliente, pois está vinculado à venda {venda.Id}");
+                    throw new Exception($"Nao e possivel excluir este cliente, pois esta vinculado a uma venda");
                 }
             }
 
             if(clienteRepo.excluir(codigo) != null)
             {
-                Console.WriteLine("Cliente excluído com sucesso!");
+                Console.WriteLine("Cliente excluido com sucesso!");
                 return true;
             }
 

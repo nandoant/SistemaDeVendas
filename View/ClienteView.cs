@@ -60,7 +60,7 @@ namespace SistemaDeVendas.View
             string nome = Input.LerString();
 
             Console.Write("Idade: ");
-            int idade = Input.LerInteiro(5,200);
+            int idade = Input.LerInteiro(18,140);
 
             Console.Write("Cpf: ");
             string cpf = Input.LerString(1,15);

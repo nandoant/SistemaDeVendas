@@ -258,7 +258,7 @@ namespace SistemaDeVendas.View
                     return;
                 }
 
-                double total = 0;
+                decimal total = 0;
                 int count = 0;
                 foreach (var venda in vendas)
                 {
@@ -286,7 +286,7 @@ namespace SistemaDeVendas.View
             {
                 produto.Exibir();
                 Console.WriteLine("Quantidade: " + venda.getProdutos()[produto]);
-                double subtotal = produto.Preco * venda.getProdutos()[produto];
+                decimal subtotal = produto.Preco * venda.getProdutos()[produto];
                 Console.WriteLine("Subtotal: " + subtotal.ToString("0.00"));
                 Console.WriteLine("-------------------------------------");
             }

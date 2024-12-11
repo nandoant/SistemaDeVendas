@@ -12,15 +12,13 @@ namespace SistemaDeVendas.Model
         private String marca;
         private String modelo;
         private String descricao;
-        private Double preco;
+        private decimal preco;
 
-        public Produto(String marca, String modelo, String descricao, Double preco) {
-            this.codigo = codigo;
+        public Produto(String marca, String modelo, String descricao, decimal preco) {
             this.marca = marca;
             this.modelo = modelo;
             this.descricao = descricao;
             this.preco = preco;
-
         }
 
         public int Codigo{
@@ -47,7 +45,7 @@ namespace SistemaDeVendas.Model
             set { descricao = value;}
         }
 
-        public Double Preco
+        public decimal Preco
         {
             get { return this.preco; }
             set
