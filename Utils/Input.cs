@@ -50,7 +50,7 @@ namespace SistemaDeVendas.Utils
                         entrada += ",00";
                     }
 
-                    int digitosAposVirgula = entrada.Length - entrada.IndexOf(",") - 1;
+                    int digitosAposVirgula = entrada.Length - entrada.IndexOf(",") - 1; // retorna quantos digitos tem após a virgula
 
                     if(digitosAposVirgula > 2)
                     {

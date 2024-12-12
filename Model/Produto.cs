@@ -21,6 +21,7 @@ namespace SistemaDeVendas.Model
             this.preco = preco;
         }
 
+        // Propriedade dos atributos, garante mais flexibilidade e controle adicional, pois permite fazer validações 
         public int Codigo{
             get { return this.codigo; } 
             set { codigo = value; }

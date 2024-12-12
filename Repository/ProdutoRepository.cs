@@ -41,6 +41,8 @@ namespace SistemaDeVendas.Repository
 
         public Produto buscarPorID(int id)
         {
+
+            // try get vai procurar a chave id, e se encontrar a saida vai ser o valor armazenado com essa chave o produto
             if (produtoBD.TryGetValue(id, out var produto))
             {
                 return produto;
@@ -56,7 +58,8 @@ namespace SistemaDeVendas.Repository
         public Produto excluir(int id)
 
         {
-            if (produtoBD.TryGetValue(id, out var produto))
+            //try get vai procurar a chave id, e se encontrar a saida vai ser o valor armazenado com essa chave o produto, e em seguida remove o mesmo da lista
+            if (produtoBD.TryGetValue(id, out var produto)) 
             {
                 produtoBD.Remove(id);
 
